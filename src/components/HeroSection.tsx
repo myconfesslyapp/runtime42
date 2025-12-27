@@ -13,9 +13,9 @@ const HeroSection = () => {
           {/* Badge */}
           <a
             href="#ebook"
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-black/5 dark:border-white/10 mb-12 hover:bg-white/80 dark:hover:bg-white/10 transition-colors group shadow-sm"
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-12 hover:bg-white/10 transition-colors group shadow-sm"
           >
-            <span className="px-2.5 py-1 bg-black/5 dark:bg-white/10 rounded text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="px-2.5 py-1 bg-white/10 rounded text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
               Ebook
             </span>
             <span className="text-sm text-foreground/80">
@@ -40,7 +40,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20">
             <a
               href="#demo"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-black/10 dark:border-white/20 bg-white/50 dark:bg-transparent backdrop-blur-sm text-foreground font-medium rounded-full hover:bg-white/80 dark:hover:bg-white/5 transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 bg-transparent backdrop-blur-sm text-foreground font-medium rounded-full hover:bg-white/5 transition-all shadow-sm"
             >
               Request a demo
             </a>
@@ -55,11 +55,11 @@ const HeroSection = () => {
 
         {/* Hero Chat Input Box */}
         <div className="relative max-w-3xl mx-auto mb-16">
-          {/* Glassmorphic outer glow for light mode */}
-          <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-b from-black/5 to-transparent dark:from-white/10 dark:to-transparent blur-sm pointer-events-none" />
+          {/* Glassmorphic outer glow */}
+          <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-b from-white/10 to-transparent blur-sm pointer-events-none" />
           
           {/* Main chat input card */}
-          <div className="relative bg-[#323238] dark:bg-[#1e1e22] rounded-2xl overflow-hidden shadow-2xl shadow-black/20 dark:shadow-black/50 border border-black/10 dark:border-white/5">
+          <div className="relative bg-[#1e1e22] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/5">
             {/* Input area */}
             <div className="px-5 py-4">
               <div className="flex items-start gap-3">
