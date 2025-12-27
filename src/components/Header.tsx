@@ -19,20 +19,20 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Floating pill header */}
-        <div className="bg-card/90 backdrop-blur-xl border border-border/50 rounded-full px-6 py-3">
+      <div className="max-w-5xl mx-auto">
+        {/* Glassmorphic floating pill header */}
+        <div className="bg-white/70 dark:bg-white/5 backdrop-blur-2xl border border-black/5 dark:border-white/10 rounded-full px-6 py-2.5 shadow-lg shadow-black/5 dark:shadow-black/20">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="/" className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-foreground flex items-center justify-center">
-                <span className="text-background font-bold text-xs">✦</span>
+              <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center">
+                <span className="text-background font-bold text-xs">▶</span>
               </div>
-              <span className="text-lg font-semibold text-foreground">YourBrand</span>
+              <span className="text-base font-semibold text-foreground">YourBrand</span>
             </a>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-7">
               {navItems.map((item) => (
                 <a
                   key={item}
@@ -45,12 +45,12 @@ const Header = () => {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-2.5">
               {/* Theme Toggle */}
               {mounted && (
                 <button
                   onClick={toggleTheme}
-                  className="p-2 rounded-full hover:bg-muted/50 transition-colors"
+                  className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? (
@@ -62,13 +62,13 @@ const Header = () => {
               )}
               <a
                 href="#demo"
-                className="px-5 py-2 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors"
+                className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors"
               >
                 Request a demo
               </a>
               <a
                 href="#signup"
-                className="px-5 py-2 border border-border text-foreground text-sm font-medium rounded-full hover:bg-muted/50 transition-colors"
+                className="px-4 py-2 border border-border dark:border-white/20 text-foreground text-sm font-medium rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Sign up
               </a>
@@ -79,7 +79,7 @@ const Header = () => {
               {mounted && (
                 <button
                   onClick={toggleTheme}
-                  className="p-2 rounded-full hover:bg-muted/50 transition-colors"
+                  className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? (
@@ -101,19 +101,19 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-2 bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl p-4">
+          <div className="lg:hidden mt-2 bg-white/90 dark:bg-black/90 backdrop-blur-2xl border border-black/5 dark:border-white/10 rounded-2xl p-4 shadow-xl">
             <nav className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="text-muted-foreground hover:text-foreground transition-colors py-2 px-3 rounded-lg hover:bg-muted/30"
+                  className="text-muted-foreground hover:text-foreground transition-colors py-2 px-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/10"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item}
                 </a>
               ))}
-              <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-border/50">
+              <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-border">
                 <a
                   href="#demo"
                   className="px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full text-center"
