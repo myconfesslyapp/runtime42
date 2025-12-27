@@ -137,12 +137,28 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Curved dark arc at bottom - gradient from orange to dark */}
+      {/* Meteors / Shooting Stars */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute animate-meteor"
+            style={{
+              top: `${Math.random() * 50}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.8}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          >
+            <div className="w-[2px] h-[80px] bg-gradient-to-b from-orange-400 via-white to-transparent rotate-[215deg] opacity-60" />
+          </div>
+        ))}
+      </div>
+
+      {/* Curved solid black arc at bottom */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[200%] aspect-[3/1] translate-y-[55%]">
-        {/* Gradient glow on top edge */}
-        <div className="absolute inset-0 rounded-t-[50%] bg-gradient-to-b from-orange-500/50 via-orange-600/20 to-transparent blur-xl" />
-        {/* Dark arc with gradient overlay */}
-        <div className="absolute inset-0 rounded-t-[50%] bg-gradient-to-b from-[#1a1a1e] to-background border-t border-orange-500/40 shadow-[0_-30px_100px_-20px_rgba(249,115,22,0.5)]" />
+        {/* Solid black arc */}
+        <div className="absolute inset-0 rounded-t-[50%] bg-black" />
       </div>
     </section>
   );
