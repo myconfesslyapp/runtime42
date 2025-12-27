@@ -2,14 +2,43 @@ import { Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp } from 'lu
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden flex flex-col">
-      {/* Orange gradient background - darker at bottom, orange at top */}
-      <div className="absolute inset-0 bg-gradient-to-b from-amber-600/50 via-orange-500/30 to-transparent" />
-      <div className="absolute top-0 left-0 w-full h-2/3 bg-gradient-to-br from-orange-500/40 via-amber-500/25 to-transparent" />
-      <div className="absolute top-0 right-0 w-full h-2/3 bg-gradient-to-bl from-amber-400/35 via-orange-400/20 to-transparent" />
+    <section className="relative min-h-screen overflow-hidden flex flex-col bg-background">
+      {/* Multiple orange glowing orbs for dramatic effect like in reference */}
+      {/* Top center large orange glow */}
+      <div 
+        className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full blur-[120px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(249,115,22,0.6) 0%, rgba(234,88,12,0.3) 40%, transparent 70%)' }}
+      />
       
-      {/* Center glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-orange-500/30 via-amber-400/20 to-transparent blur-[80px] pointer-events-none" />
+      {/* Left side amber/yellow glow */}
+      <div 
+        className="absolute top-[5%] left-[-15%] w-[700px] h-[700px] rounded-full blur-[130px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.5) 0%, rgba(249,115,22,0.25) 40%, transparent 70%)' }}
+      />
+      
+      {/* Right side deep orange/red glow */}
+      <div 
+        className="absolute top-[0%] right-[-15%] w-[700px] h-[700px] rounded-full blur-[130px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(234,88,12,0.55) 0%, rgba(220,38,38,0.2) 40%, transparent 70%)' }}
+      />
+      
+      {/* Center bright spot */}
+      <div 
+        className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[500px] h-[400px] rounded-full blur-[80px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(253,186,116,0.45) 0%, rgba(249,115,22,0.2) 50%, transparent 70%)' }}
+      />
+      
+      {/* Bottom left glow */}
+      <div 
+        className="absolute bottom-[25%] left-[5%] w-[500px] h-[500px] rounded-full blur-[110px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(249,115,22,0.35) 0%, rgba(251,146,60,0.15) 50%, transparent 70%)' }}
+      />
+      
+      {/* Bottom right glow */}
+      <div 
+        className="absolute bottom-[25%] right-[5%] w-[500px] h-[500px] rounded-full blur-[110px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(220,38,38,0.3) 0%, rgba(249,115,22,0.15) 50%, transparent 70%)' }}
+      />
 
       {/* Content centered vertically */}
       <div className="container mx-auto px-6 relative z-10 flex-1 flex flex-col justify-center items-center pt-20">
