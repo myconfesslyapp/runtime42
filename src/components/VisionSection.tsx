@@ -15,10 +15,11 @@ const VisionSection = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
             Voice is the ultimate interface.
             <br />
-            We're here to make it real.
+            Structure is the ultimate foundation.
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            We believe that the future of human-machine interaction is voice. Speaking should be the most natural way to access information, build products, and connect with technology.
+            We believe the future of building software is conversational —
+            but systems must be designed before they are generated.
           </p>
           <a
             href="#about"

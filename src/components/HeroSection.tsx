@@ -10,19 +10,6 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <a
-            href="#ebook"
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-12 hover:bg-white/10 transition-colors group shadow-sm"
-          >
-            <span className="px-2.5 py-1 bg-white/10 rounded text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-              Ebook
-            </span>
-            <span className="text-sm text-foreground/80">
-              STT Buyer's Guide for <span className="text-foreground font-semibold">Voice Agents</span>
-            </span>
-            <ArrowRight size={14} className="text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-          </a>
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6 text-foreground">
@@ -65,7 +52,7 @@ const HeroSection = () => {
               <div className="flex items-start gap-3">
                 <span className="text-white/30 text-base leading-relaxed pt-0.5">|</span>
                 <p className="text-white/40 text-base leading-relaxed flex-1">
-                  Ask Lovable to create a blog about...
+                  Ask runtime42 to build a SaaS dashboard with auth, APIs, and a scalable backend…
                 </p>
                 {/* Green indicator */}
                 <div className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/30">
