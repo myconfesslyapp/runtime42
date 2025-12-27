@@ -45,7 +45,7 @@ const UseCasesSection = () => {
 
         <div className="max-w-6xl mx-auto relative">
           {/* Decorative gradient */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-r from-violet-600/20 via-fuchsia-500/20 to-violet-600/20 blur-[100px] pointer-events-none rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-r from-orange-600/20 via-amber-500/20 to-orange-600/20 blur-[100px] pointer-events-none rounded-full" />
           
           <div className="relative bento-card overflow-hidden">
             <div className="grid md:grid-cols-2">

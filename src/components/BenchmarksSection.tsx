@@ -6,7 +6,7 @@ const BenchmarksSection = () => {
           <div className="bento-card relative overflow-hidden py-16 px-8 text-center min-h-[350px]">
             {/* Background gradient arc */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150%] h-[200px]">
-              <div className="absolute inset-0 bg-gradient-to-t from-violet-600/40 via-purple-500/20 to-transparent rounded-t-[50%]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-orange-600/40 via-amber-500/20 to-transparent rounded-t-[50%]" />
             </div>
             
             <div className="relative z-10">
