@@ -1,117 +1,109 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Mic } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
-      {/* Background Glow Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full bg-gradient-to-b from-primary/20 via-accent/10 to-transparent blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] rounded-full bg-primary/15 blur-[100px] pointer-events-none animate-pulse-glow" />
-      <div className="absolute top-1/3 right-1/3 w-[400px] h-[400px] rounded-full bg-accent/20 blur-[100px] pointer-events-none animate-pulse-glow" style={{ animationDelay: '2s' }} />
+    <section className="relative min-h-screen overflow-hidden bg-background pt-28 pb-0">
+      {/* Background Gradient Glows */}
+      <div className="absolute top-0 left-0 w-[600px] h-[800px] bg-gradient-to-br from-purple-600/40 via-purple-500/20 to-transparent blur-[120px] pointer-events-none -translate-x-1/3" />
+      <div className="absolute top-0 right-0 w-[600px] h-[800px] bg-gradient-to-bl from-fuchsia-500/40 via-purple-500/20 to-transparent blur-[120px] pointer-events-none translate-x-1/3" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted/50 border border-border/50 mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">AI-Powered Development</span>
-          </div>
+          <a
+            href="#ebook"
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-muted/60 border border-border/40 mb-10 hover:bg-muted/80 transition-colors group"
+          >
+            <span className="px-2 py-0.5 bg-muted rounded text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Ebook
+            </span>
+            <span className="text-sm text-foreground/90">
+              STT Buyer's Guide for <span className="text-foreground font-medium">Voice Agents</span>
+            </span>
+            <ArrowRight size={14} className="text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
+          </a>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
-            <span className="text-foreground">Vibe coding, done</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold leading-[1.1] tracking-tight mb-8 text-foreground">
+            Vibe coding, done
             <br />
-            <span className="text-gradient">the right way.</span>
+            the right way.
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
             Design, generate, and ship scalable web apps using AI — with real system design, not broken code.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
-            <a
-              href="#start"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-full hover:bg-foreground/90 transition-all hover:scale-105"
-            >
-              Start building for free
-              <ArrowRight size={16} />
-            </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20">
             <a
               href="#demo"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium rounded-full hover:bg-muted/30 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-foreground/20 bg-transparent text-foreground font-medium rounded-full hover:bg-foreground/10 transition-all"
             >
-              View demo
+              Request a demo
+            </a>
+            <a
+              href="#start"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-full hover:bg-foreground/90 transition-all"
+            >
+              Sign up for free
             </a>
           </div>
-
-          {/* Supporting Line */}
-          <p className="text-xs text-muted-foreground/70">
-            No setup. No guesswork. Export real code anytime.
-          </p>
         </div>
 
-        {/* Hero Visual */}
-        <div className="mt-20 relative max-w-5xl mx-auto">
-          {/* Outer glow */}
-          <div className="absolute -inset-4 bg-gradient-to-b from-primary/20 via-accent/10 to-transparent rounded-3xl blur-2xl pointer-events-none" />
+        {/* Hero Preview Card */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Card glow effect */}
+          <div className="absolute -inset-1 bg-gradient-to-b from-white/10 to-transparent rounded-3xl blur-sm pointer-events-none" />
           
-          {/* Main preview card */}
-          <div className="relative bg-card/60 backdrop-blur-xl border border-border/40 rounded-2xl p-1.5 shadow-2xl shadow-primary/5">
-            <div className="relative rounded-xl overflow-hidden bg-gradient-to-b from-muted/40 to-background/80 aspect-[16/9]">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-border/30">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
+          {/* Main card */}
+          <div className="relative bg-[#1a1a24]/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Card content */}
+            <div className="p-8 min-h-[300px] relative">
+              {/* Text preview */}
+              <p className="text-foreground font-medium text-lg">
+                Hello, hello, hello.
+              </p>
+              
+              {/* Bottom bar */}
+              <div className="absolute bottom-0 left-0 right-0 px-6 py-4 flex items-center justify-between border-t border-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center">
+                    <div className="w-3 h-3 bg-white/80 rounded-full" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">Time remaining 04:52</span>
                 </div>
-                <div className="flex-1 mx-8">
-                  <div className="h-5 bg-muted/30 rounded-full max-w-xs mx-auto" />
+                
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-muted-foreground">
+                    Restart live transcription in <span className="text-foreground underline">English</span>
+                  </span>
+                  <button className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center hover:bg-foreground/90 transition-colors">
+                    <Mic size={18} className="text-background" />
+                  </button>
                 </div>
               </div>
-              
-              {/* App content skeleton */}
-              <div className="p-6">
-                <div className="grid grid-cols-12 gap-4 h-full">
-                  {/* Sidebar */}
-                  <div className="col-span-3 hidden sm:block">
-                    <div className="h-6 bg-muted/30 rounded w-2/3 mb-4" />
-                    <div className="space-y-2">
-                      <div className="h-3 bg-muted/20 rounded" />
-                      <div className="h-3 bg-primary/20 rounded" />
-                      <div className="h-3 bg-muted/20 rounded w-4/5" />
-                      <div className="h-3 bg-muted/20 rounded w-3/5" />
-                    </div>
-                  </div>
-                  
-                  {/* Main content */}
-                  <div className="col-span-12 sm:col-span-9">
-                    <div className="h-8 bg-gradient-to-r from-primary/30 to-accent/20 rounded-lg w-2/5 mb-6" />
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {[1, 2, 3, 4, 5, 6].map((i) => (
-                        <div
-                          key={i}
-                          className="aspect-[4/3] bg-muted/15 rounded-lg border border-border/20 flex items-center justify-center"
-                        >
-                          <div className="w-8 h-8 rounded bg-muted/30" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Bottom gradient fade */}
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Caption */}
-        <p className="text-center text-sm text-muted-foreground/60 mt-8">
-          See your idea turn into a real, working application — step by step.
-        </p>
+      {/* Curved bottom shape */}
+      <div className="relative mt-[-80px]">
+        <svg
+          viewBox="0 0 1440 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-auto"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 200V100C0 100 360 0 720 0C1080 0 1440 100 1440 100V200H0Z"
+            fill="hsl(var(--background))"
+          />
+        </svg>
       </div>
     </section>
   );
