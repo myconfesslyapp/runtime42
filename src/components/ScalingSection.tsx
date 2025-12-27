@@ -54,8 +54,8 @@ const ScalingSection = () => {
             
             {/* Abstract 3D visual placeholder */}
             <div className="absolute top-0 right-0 w-1/2 h-full">
-              <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-violet-500/30 to-fuchsia-500/20 rounded-2xl transform rotate-12 blur-sm" />
-              <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/30 rounded-xl transform -rotate-6" />
+              <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-orange-500/30 to-amber-500/20 rounded-2xl transform rotate-12 blur-sm" />
+              <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-500/30 rounded-xl transform -rotate-6" />
             </div>
           </div>
 

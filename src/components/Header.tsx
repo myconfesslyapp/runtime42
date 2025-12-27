@@ -14,8 +14,8 @@ const Header = () => {
         <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-2.5 shadow-lg shadow-black/20">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2.5">
-              <img src={logo} alt="runtime42" className="w-7 h-7" />
+            <a href="/" className="flex items-center gap-2">
+              <img src={logo} alt="runtime42" className="w-8 h-8" />
               <span className="text-base font-semibold text-foreground">runtime42</span>
             </a>
 

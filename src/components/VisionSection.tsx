@@ -2,8 +2,8 @@ const VisionSection = () => {
   return (
     <section className="relative py-24 bg-background overflow-hidden">
       {/* Background gradient glows */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-600/30 via-violet-500/20 to-transparent blur-[150px] pointer-events-none -translate-x-1/4" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-fuchsia-500/40 via-purple-500/20 to-transparent blur-[150px] pointer-events-none translate-x-1/4" />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-600/30 via-amber-500/20 to-transparent blur-[150px] pointer-events-none -translate-x-1/4" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-orange-500/40 via-amber-500/20 to-transparent blur-[150px] pointer-events-none translate-x-1/4" />
 
       {/* Curved arc at top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[200px] -translate-y-1/2">
