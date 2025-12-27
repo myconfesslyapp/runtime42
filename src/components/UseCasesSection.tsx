@@ -3,27 +3,27 @@ import { ArrowRight } from 'lucide-react';
 const UseCasesSection = () => {
   const useCases = [
     {
-      title: 'Customer support',
-      description: 'Deliver natural conversations at scale — with agents that answer instantly, never drop a call, and handle thousands of interactions in parallel, inbound and outbound.',
-      cta: 'aircall transcribed 95% faster',
+      title: 'SaaS products',
+      description: 'Build dashboards, auth flows, APIs, billing-ready systems, and scalable backends.',
+      cta: 'Learn more',
       link: '#',
     },
     {
-      title: 'Sales enablement',
-      description: 'Capture names, emails, and company details across accents and languages, then sync seamlessly into CRMs to supercharge sales teams with top-tier AI assistance.',
-      cta: 'Attention closed more deals globally',
+      title: 'Internal tools',
+      description: 'Generate admin panels, data tools, and operational apps with clean structure.',
+      cta: 'Learn more',
       link: '#',
     },
     {
-      title: 'Note-takers',
-      description: 'Capture every detail automatically — with real-time or async transcription that tags speakers, generates summaries, and more across all your tools.',
-      cta: 'How we support note-takers?',
+      title: 'AI-powered apps',
+      description: 'Design backend-safe AI workflows with real API handling and data models.',
+      cta: 'Learn more',
       link: '#',
     },
     {
-      title: 'Financial services',
-      description: 'Run voice agents that can engage customers in sensitive, compliance-heavy contexts, with stable transcription and top numerical accuracy.',
-      cta: 'How we support financial services?',
+      title: 'Startup MVPs',
+      description: 'Go from idea → system design → code → export without guesswork.',
+      cta: 'Learn more',
       link: '#',
     },
   ];
@@ -36,10 +36,10 @@ const UseCasesSection = () => {
             Use Cases
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            What you can build with our API
+            What you can build with runtime42
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Powering the next generation of AI assistants and voice agents across industries
+            Powering modern web apps across industries
           </p>
         </div>
 

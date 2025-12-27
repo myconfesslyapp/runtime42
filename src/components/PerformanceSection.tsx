@@ -1,26 +1,26 @@
-import { Zap, Headphones, Activity, Radio } from 'lucide-react';
+import { Zap, Layers, Activity, Globe } from 'lucide-react';
 
 const PerformanceSection = () => {
   const features = [
     {
       icon: Zap,
-      title: 'Sub-300ms latency',
-      description: 'To keep conversations seamless and ensure smooth, uninterrupted dialogue every time.',
+      title: 'Sub-second generation loops',
+      description: 'Design → approve → generate without long wait times or broken retries.',
     },
     {
-      icon: Headphones,
-      title: 'Leading STT accuracy',
-      description: 'Capturing numerical, jargon, and key entities such as names and emails for downstream agent tasks.',
+      icon: Layers,
+      title: 'Production-ready architecture',
+      description: 'Pages, APIs, data models, and backend flows designed before code is written.',
     },
     {
       icon: Activity,
-      title: 'Predictable, stable performance',
-      description: 'Forget variance spikes to deliver a consistent user experience.',
+      title: 'Predictable, stable output',
+      description: 'No random rewrites. No architectural chaos. Just clean, structured code.',
     },
     {
-      icon: Radio,
-      title: 'Optimized for SIP',
-      description: 'As well as telephony protocols (8 kHz), fitting natively into your existing workflows.',
+      icon: Globe,
+      title: 'Web-first, backend-aware',
+      description: 'Built specifically for modern web applications with real backend needs.',
     },
   ];
 
@@ -49,7 +49,8 @@ const PerformanceSection = () => {
                   won't disappoint
                 </h3>
                 <p className="text-muted-foreground mb-8 max-w-sm">
-                  In real-time, average latency doesn't matter – consistent response time does.
+                  In real-world app building, consistency matters more than demos.
+                  runtime42 generates stable, predictable systems — every time.
                 </p>
                 <a
                   href="#benchmarks"

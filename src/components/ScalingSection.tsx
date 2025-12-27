@@ -1,21 +1,21 @@
-import { Cloud, Eye, DollarSign } from 'lucide-react';
+import { Layers, Eye, DollarSign } from 'lucide-react';
 
 const ScalingSection = () => {
   const features = [
     {
-      icon: Cloud,
-      title: 'Infinite parallel streams',
-      description: 'No need to forecast, give notice, or over-provision in advance.',
+      icon: Layers,
+      title: 'Multiple architecture options',
+      description: 'Choose between MVP, scalable SaaS, or production-grade systems.',
     },
     {
       icon: Eye,
-      title: 'Zero infra burden',
-      description: 'Save at least 20% of DevOps effort without sacrificing latency, with no need to self-host.',
+      title: 'Zero infra guesswork',
+      description: 'We design backend patterns so you don\'t fight scaling issues later.',
     },
     {
       icon: DollarSign,
-      title: 'Flexible, usage-based pricing',
-      description: 'Start small, test freely, scale-as-you-go with clear pricing tiers.',
+      title: 'Clear, usage-based pricing',
+      description: 'Start small, test freely, and scale when you\'re ready.',
     },
   ];
 
@@ -42,9 +42,7 @@ const ScalingSection = () => {
                 thinking
               </h3>
               <p className="text-muted-foreground mb-8">
-                Instant scalability.
-                <br />
-                No limits, no fine print.
+                From MVP to production — without rewriting everything.
               </p>
               <a
                 href="#sales"

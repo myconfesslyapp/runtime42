@@ -14,12 +14,14 @@ const BenchmarksSection = () => {
                 Benchmarks
               </span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                How we compare to alternatives
+                How we compare to other vibe tools
               </h3>
               <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-                5%+ more accurate than competitors,
+                Fewer rewrites.
                 <br />
-                improving your <span className="text-foreground font-medium">processing time by 50%</span>
+                Cleaner systems.
+                <br />
+                <span className="text-foreground font-medium">More shippable code.</span>
               </p>
               <a
                 href="#benchmarks"

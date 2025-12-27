@@ -17,7 +17,7 @@ const Header = () => {
               <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center">
                 <span className="text-background font-bold text-xs">▶</span>
               </div>
-              <span className="text-base font-semibold text-foreground">YourBrand</span>
+              <span className="text-base font-semibold text-foreground">runtime42</span>
             </a>
 
             {/* Desktop Navigation */}

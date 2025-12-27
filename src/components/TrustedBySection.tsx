@@ -1,17 +1,17 @@
 const TrustedBySection = () => {
   const logos = [
-    { name: 'alan', display: '👁️ alan' },
-    { name: 'Attention', display: '⚡ Attention' },
-    { name: 'JELLYSMACK', display: 'JELLYSMACK✦' },
-    { name: 'aircall', display: '📞 aircall' },
-    { name: 'mojo', display: '000 mojo' },
+    { name: 'founders', display: '👁️ Startup founders' },
+    { name: 'hackers', display: '⚡ Indie hackers' },
+    { name: 'teams', display: '✦ Product teams' },
+    { name: 'agencies', display: '📞 Agencies' },
+    { name: 'engineers', display: '000 Engineers' },
   ];
 
   return (
     <section className="relative py-20 bg-background">
       <div className="container mx-auto px-6">
         <p className="text-center text-sm text-muted-foreground mb-10">
-          Trusted by <span className="text-foreground font-medium">300,000+ developers</span> worldwide
+          Trusted by <span className="text-foreground font-medium">builders shipping real products</span>
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">

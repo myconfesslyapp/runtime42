@@ -1,22 +1,22 @@
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      company: 'claap',
-      quote: "We are 100% benchmark and evaluation driven. The platform was one of the best providers selected on merit to transcribe user videos, especially for non-English languages. Their reactive customer support and data compliance make their offer really compelling.",
+      company: 'Startup Studio',
+      quote: "This is the first vibe coding tool that actually understands system design. It feels like working with a senior engineering team.",
+      author: 'Matthias Winckenburg',
+      role: 'CTO & Founder',
+    },
+    {
+      company: 'Engineering',
+      quote: "We stopped rewriting generated code. The architecture finally makes sense.",
       author: 'Kojo Hinson',
-      role: 'Group Engineering Manager',
+      role: 'Engineering Manager',
     },
     {
-      company: 'claap',
-      quote: "It's the first time we've been able to transcribe video with such accuracy and speed - including when the conversation is technical. Whatever the language or accent, the quality is always there.",
+      company: 'Founder',
+      quote: "Other tools generate code. runtime42 generates systems.",
       author: 'Robin Bonduelle',
-      role: 'CEO',
-    },
-    {
-      company: 'mojo',
-      quote: "Having tried numerous speech-to-text solutions, I can confidently say: the API outshines the rest. Their balance of accuracy, speed, and precise word timings is unparalleled.",
-      author: 'Alex Thompson',
-      role: 'CTO',
+      role: 'Founder',
     },
   ];
 
@@ -27,16 +27,16 @@ const TestimonialsSection = () => {
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border">
             <span className="text-orange-500">⭐</span>
-            <span className="text-sm font-medium text-foreground">Rated 5 on G2</span>
+            <span className="text-sm font-medium text-foreground">Rated 5 by builders who ship</span>
           </div>
         </div>
 
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Why customers choose us
+            Why builders choose runtime42
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Here's what top-tier voice platform builders say about our product
+            Here's what founders and engineers say about runtime42
           </p>
         </div>
 
@@ -47,7 +47,7 @@ const TestimonialsSection = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-muted to-muted/50" />
               <div className="absolute bottom-6 left-6">
                 <p className="text-foreground font-medium">Matthias Winckenburg</p>
-                <p className="text-muted-foreground text-sm">CTO & Founder, Attention</p>
+                <p className="text-muted-foreground text-sm">CTO & Founder, Startup Studio</p>
               </div>
             </div>
 

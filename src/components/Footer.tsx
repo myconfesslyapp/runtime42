@@ -24,7 +24,7 @@ const Footer = () => {
               <div className="w-7 h-7 rounded-lg bg-foreground flex items-center justify-center">
                 <span className="text-background font-bold text-xs">✦</span>
               </div>
-              <span className="text-lg font-semibold text-foreground">YourBrand</span>
+              <span className="text-lg font-semibold text-foreground">runtime42</span>
             </a>
             <p className="text-sm text-muted-foreground">
               Vibe coding with real system design.
@@ -53,7 +53,7 @@ const Footer = () => {
 
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 YourBrand. All rights reserved.
+            © 2024 runtime42. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a href="#twitter" className="text-muted-foreground hover:text-foreground transition-colors">
