@@ -3,6 +3,25 @@ import { Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp } from 'lu
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden flex flex-col bg-background">
+      {/* Half Sun on left side with gradient */}
+      <div className="absolute top-1/2 left-[-300px] -translate-y-1/2 w-[600px] h-[600px] pointer-events-none">
+        {/* Sun core */}
+        <div 
+          className="absolute inset-0 rounded-full"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(251,146,60,1) 0%, rgba(249,115,22,0.9) 25%, rgba(234,88,12,0.6) 45%, rgba(194,65,12,0.3) 65%, transparent 85%)',
+            boxShadow: '0 0 120px 50px rgba(249,115,22,0.4), 0 0 250px 100px rgba(249,115,22,0.2)'
+          }}
+        />
+        {/* Corona glow */}
+        <div 
+          className="absolute inset-[-30%] rounded-full blur-3xl"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(251,146,60,0.25) 0%, rgba(249,115,22,0.1) 50%, transparent 70%)'
+          }}
+        />
+      </div>
+
       {/* Content */}
       <div className="container mx-auto px-6 relative z-10 flex-1 flex flex-col justify-center items-center pt-20">
         <div className="max-w-4xl mx-auto text-center">
