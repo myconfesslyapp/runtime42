@@ -1,14 +1,13 @@
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
-import TrustSection from '@/components/TrustSection';
-import ValueProposition from '@/components/ValueProposition';
-import FeaturesSection from '@/components/FeaturesSection';
-import DeepFeatureSection from '@/components/DeepFeatureSection';
-import HowItWorks from '@/components/HowItWorks';
-import TestimonialSection from '@/components/TestimonialSection';
-import PricingSection from '@/components/PricingSection';
+import TrustedBySection from '@/components/TrustedBySection';
+import PerformanceSection from '@/components/PerformanceSection';
+import ScalingSection from '@/components/ScalingSection';
+import BenchmarksSection from '@/components/BenchmarksSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import UseCasesSection from '@/components/UseCasesSection';
+import VisionSection from '@/components/VisionSection';
 import FAQSection from '@/components/FAQSection';
-import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -17,15 +16,14 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <TrustSection />
-        <ValueProposition />
-        <FeaturesSection />
-        <DeepFeatureSection />
-        <HowItWorks />
-        <TestimonialSection />
-        <PricingSection />
+        <TrustedBySection />
+        <PerformanceSection />
+        <ScalingSection />
+        <BenchmarksSection />
+        <TestimonialsSection />
+        <UseCasesSection />
+        <VisionSection />
         <FAQSection />
-        <FinalCTA />
       </main>
       <Footer />
     </div>
