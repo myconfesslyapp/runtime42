@@ -92,6 +92,16 @@ export default {
             opacity: "0"
           },
         },
+        "twinkle": {
+          "0%, 100%": { 
+            opacity: "0.2",
+            transform: "scale(1)"
+          },
+          "50%": { 
+            opacity: "1",
+            transform: "scale(1.2)"
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -99,6 +109,7 @@ export default {
         "float": "float 6s ease-in-out infinite",
         "glow-pulse": "glow-pulse 4s ease-in-out infinite",
         "meteor": "meteor 3s linear infinite",
+        "twinkle": "twinkle 3s ease-in-out infinite",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
