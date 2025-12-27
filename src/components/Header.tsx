@@ -1,10 +1,21 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = ['Product', 'How it works', 'Pricing', 'Docs'];
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
@@ -35,6 +46,20 @@ const Header = () => {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
+              {/* Theme Toggle */}
+              {mounted && (
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full hover:bg-muted/50 transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? (
+                    <Sun size={18} className="text-foreground" />
+                  ) : (
+                    <Moon size={18} className="text-foreground" />
+                  )}
+                </button>
+              )}
               <a
                 href="#demo"
                 className="px-5 py-2 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors"
@@ -50,12 +75,27 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden p-2 text-foreground"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            <div className="lg:hidden flex items-center gap-2">
+              {mounted && (
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full hover:bg-muted/50 transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? (
+                    <Sun size={18} className="text-foreground" />
+                  ) : (
+                    <Moon size={18} className="text-foreground" />
+                  )}
+                </button>
+              )}
+              <button
+                className="p-2 text-foreground"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
 
