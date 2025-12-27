@@ -1,4 +1,4 @@
-import { ArrowRight, Mic } from 'lucide-react';
+import { ArrowRight, Mic, Volume2 } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -13,15 +13,15 @@ const HeroSection = () => {
           {/* Badge */}
           <a
             href="#ebook"
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-muted/80 dark:bg-muted/40 border border-border/50 mb-10 hover:bg-muted transition-colors group"
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-muted/80 dark:bg-white/5 border border-border/50 dark:border-white/10 mb-10 hover:bg-muted dark:hover:bg-white/10 transition-colors group"
           >
-            <span className="px-2.5 py-1 bg-muted-foreground/20 rounded text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="px-2.5 py-1 bg-muted-foreground/10 dark:bg-white/10 rounded text-[10px] font-bold uppercase tracking-wider text-muted-foreground dark:text-white/60">
               Ebook
             </span>
-            <span className="text-sm text-foreground/80">
-              STT Buyer's Guide for <span className="text-foreground font-medium">Voice Agents</span>
+            <span className="text-sm text-foreground/80 dark:text-white/80">
+              STT Buyer's Guide for <span className="text-foreground dark:text-white font-medium">Voice Agents</span>
             </span>
-            <ArrowRight size={14} className="text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight size={14} className="text-muted-foreground dark:text-white/50 group-hover:translate-x-0.5 transition-transform" />
           </a>
 
           {/* Headline */}
@@ -40,45 +40,60 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-24">
             <a
               href="#demo"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-foreground/20 bg-transparent text-foreground font-medium rounded-full hover:bg-foreground/5 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-foreground/20 dark:border-white/20 bg-transparent text-foreground dark:text-white font-medium rounded-full hover:bg-foreground/5 dark:hover:bg-white/5 transition-all"
             >
               Request a demo
             </a>
             <a
               href="#start"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-full hover:bg-foreground/90 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground dark:bg-white text-background dark:text-black font-medium rounded-full hover:bg-foreground/90 dark:hover:bg-white/90 transition-all"
             >
               Sign up for free
             </a>
           </div>
         </div>
 
-        {/* Hero Preview Card */}
+        {/* Hero Chat Preview Card */}
         <div className="relative max-w-4xl mx-auto mb-0">
-          {/* Card glow */}
-          <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/20 to-transparent dark:from-white/10 pointer-events-none" />
+          {/* Card glow effect */}
+          <div className="absolute -inset-[1px] rounded-[20px] bg-gradient-to-b from-white/20 via-white/5 to-transparent pointer-events-none" />
           
-          {/* Main card */}
-          <div className="relative bg-[#1a1a1f] dark:bg-[#111114] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-            <div className="p-8 min-h-[280px] relative">
-              <p className="text-white font-medium text-lg">
-                Hello, hello, hello.
-              </p>
-              
-              {/* Bottom bar */}
-              <div className="absolute bottom-0 left-0 right-0 px-6 py-4 flex items-center justify-between border-t border-white/5">
+          {/* Main chat card - always dark */}
+          <div className="relative bg-[#18181b] rounded-[20px] overflow-hidden shadow-2xl shadow-black/50 border border-white/[0.08]">
+            {/* Chat content area */}
+            <div className="p-8 pb-20 min-h-[280px]">
+              {/* Chat messages */}
+              <div className="space-y-4">
+                <p className="text-white/90 font-medium text-lg leading-relaxed">
+                  Hello, hello, hello.
+                </p>
+              </div>
+            </div>
+            
+            {/* Bottom control bar */}
+            <div className="absolute bottom-0 left-0 right-0 px-6 py-4 bg-[#18181b] border-t border-white/[0.06]">
+              <div className="flex items-center justify-between">
+                {/* Left side - Avatar and timer */}
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center">
-                    <div className="w-3 h-3 bg-white/80 rounded-full" />
+                  <div className="relative">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                      <Volume2 size={16} className="text-white" />
+                    </div>
+                    {/* Pulse animation ring */}
+                    <div className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping" style={{ animationDuration: '2s' }} />
                   </div>
-                  <span className="text-sm text-white/50">Time remaining 04:52</span>
+                  <span className="text-sm text-white/40 font-mono">Time remaining 04:52</span>
                 </div>
                 
+                {/* Right side - Language and mic */}
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-white/50 hidden sm:block">
-                    Restart live transcription in <span className="text-white underline">English</span>
+                  <span className="text-sm text-white/40 hidden sm:block">
+                    Restart live transcription in{' '}
+                    <span className="text-white/70 underline underline-offset-2 cursor-pointer hover:text-white transition-colors">
+                      English
+                    </span>
                   </span>
-                  <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition-colors">
+                  <button className="w-11 h-11 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition-all hover:scale-105 shadow-lg">
                     <Mic size={18} className="text-black" />
                   </button>
                 </div>
