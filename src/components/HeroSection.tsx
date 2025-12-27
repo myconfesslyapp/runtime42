@@ -1,4 +1,4 @@
-import { ArrowRight, Mic, Volume2 } from 'lucide-react';
+import { ArrowRight, Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -53,50 +53,66 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Hero Chat Preview Card */}
+        {/* Hero Chat Input Box */}
         <div className="relative max-w-4xl mx-auto mb-0">
-          {/* Card glow effect */}
-          <div className="absolute -inset-[1px] rounded-[20px] bg-gradient-to-b from-white/20 via-white/5 to-transparent pointer-events-none" />
-          
-          {/* Main chat card - always dark */}
-          <div className="relative bg-[#18181b] rounded-[20px] overflow-hidden shadow-2xl shadow-black/50 border border-white/[0.08]">
-            {/* Chat content area */}
-            <div className="p-8 pb-20 min-h-[280px]">
-              {/* Chat messages */}
-              <div className="space-y-4">
-                <p className="text-white/90 font-medium text-lg leading-relaxed">
-                  Hello, hello, hello.
+          {/* Main chat input card */}
+          <div className="relative bg-[#2a2a2e] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
+            {/* Input area */}
+            <div className="px-5 py-4">
+              <div className="flex items-start gap-3">
+                <span className="text-white/40 text-base leading-relaxed pt-0.5">|</span>
+                <p className="text-white/50 text-base leading-relaxed flex-1">
+                  Ask Lovable to create a blog about...
                 </p>
+                {/* Green robot icon */}
+                <div className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-xs">🤖</span>
+                </div>
               </div>
             </div>
             
-            {/* Bottom control bar */}
-            <div className="absolute bottom-0 left-0 right-0 px-6 py-4 bg-[#18181b] border-t border-white/[0.06]">
-              <div className="flex items-center justify-between">
-                {/* Left side - Avatar and timer */}
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                      <Volume2 size={16} className="text-white" />
-                    </div>
-                    {/* Pulse animation ring */}
-                    <div className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping" style={{ animationDuration: '2s' }} />
-                  </div>
-                  <span className="text-sm text-white/40 font-mono">Time remaining 04:52</span>
-                </div>
+            {/* Bottom toolbar */}
+            <div className="px-4 py-3 flex items-center justify-between">
+              {/* Left side buttons */}
+              <div className="flex items-center gap-2">
+                {/* Plus button */}
+                <button className="w-9 h-9 rounded-xl bg-[#3a3a3e] hover:bg-[#454549] flex items-center justify-center transition-colors">
+                  <Plus size={18} className="text-white/60" />
+                </button>
                 
-                {/* Right side - Language and mic */}
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-white/40 hidden sm:block">
-                    Restart live transcription in{' '}
-                    <span className="text-white/70 underline underline-offset-2 cursor-pointer hover:text-white transition-colors">
-                      English
-                    </span>
-                  </span>
-                  <button className="w-11 h-11 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition-all hover:scale-105 shadow-lg">
-                    <Mic size={18} className="text-black" />
-                  </button>
-                </div>
+                {/* Attach button */}
+                <button className="h-9 px-3.5 rounded-xl bg-[#3a3a3e] hover:bg-[#454549] flex items-center gap-2 transition-colors">
+                  <Paperclip size={16} className="text-white/60" />
+                  <span className="text-sm text-white/70 font-medium">Attach</span>
+                </button>
+                
+                {/* Theme dropdown */}
+                <button className="h-9 px-3.5 rounded-xl bg-[#3a3a3e] hover:bg-[#454549] flex items-center gap-2 transition-colors">
+                  <Palette size={16} className="text-white/60" />
+                  <span className="text-sm text-white/50 font-medium">Theme</span>
+                  <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Right side buttons */}
+              <div className="flex items-center gap-2">
+                {/* Chat button */}
+                <button className="h-9 px-4 rounded-xl bg-[#3a3a3e] hover:bg-[#454549] flex items-center gap-2 transition-colors">
+                  <MessageSquare size={16} className="text-white/60" />
+                  <span className="text-sm text-white/70 font-medium">Chat</span>
+                </button>
+                
+                {/* Audio waveform button */}
+                <button className="w-9 h-9 rounded-xl bg-[#3a3a3e] hover:bg-[#454549] flex items-center justify-center transition-colors">
+                  <AudioLines size={18} className="text-white/60" />
+                </button>
+                
+                {/* Send button */}
+                <button className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors border border-white/10">
+                  <ArrowUp size={18} className="text-white/50" />
+                </button>
               </div>
             </div>
           </div>
