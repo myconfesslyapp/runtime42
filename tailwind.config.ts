@@ -110,6 +110,7 @@ export default {
         "glow-pulse": "glow-pulse 4s ease-in-out infinite",
         "meteor": "meteor 3s linear infinite",
         "twinkle": "twinkle 3s ease-in-out infinite",
+        "spin-slow": "spin 30s linear infinite",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
