@@ -40,7 +40,24 @@ const HeroSection = () => {
         style={{ background: 'radial-gradient(circle, rgba(220,38,38,0.3) 0%, rgba(249,115,22,0.15) 50%, transparent 70%)' }}
       />
 
-      {/* Content centered vertically */}
+      {/* Twinkling Static Stars */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={`star-${i}`}
+            className="absolute rounded-full bg-white animate-twinkle"
+            style={{
+              width: `${1 + Math.random() * 2}px`,
+              height: `${1 + Math.random() * 2}px`,
+              top: `${Math.random() * 80}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-6 relative z-10 flex-1 flex flex-col justify-center items-center pt-20">
         <div className="max-w-4xl mx-auto text-center">
           {/* Headline */}
