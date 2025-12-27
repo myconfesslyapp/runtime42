@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Oxygen', 'system-ui', 'sans-serif'],
+        oxygen: ['Oxygen', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
