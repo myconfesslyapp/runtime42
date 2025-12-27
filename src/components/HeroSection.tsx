@@ -1,12 +1,15 @@
-import { ArrowRight, Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp } from 'lucide-react';
+import { Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background pt-40 sm:pt-48 pb-0">
-      {/* Background Gradient Glows */}
-      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-gradient-to-br from-orange-500/40 via-orange-400/25 to-transparent blur-[150px] pointer-events-none -translate-x-1/4 -translate-y-1/4" />
-      <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-amber-400/40 via-orange-400/25 to-transparent blur-[150px] pointer-events-none translate-x-1/4 -translate-y-1/4" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-orange-400/15 rounded-full blur-[120px] pointer-events-none" />
+    <section className="relative min-h-screen overflow-hidden pt-32 sm:pt-40 pb-0">
+      {/* Full gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-orange-600/30 via-amber-500/20 to-background" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-500/40 via-transparent to-transparent" />
+      <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-amber-400/30 via-transparent to-transparent" />
+      
+      {/* Center glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-orange-500/25 via-amber-400/15 to-transparent blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -24,29 +27,29 @@ const HeroSection = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-16">
             <a
               href="#demo"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 bg-transparent backdrop-blur-sm text-foreground font-medium rounded-full hover:bg-white/5 transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 bg-white/5 backdrop-blur-sm text-foreground font-medium rounded-full hover:bg-white/10 transition-all"
             >
               Request a demo
             </a>
             <a
               href="#start"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-full hover:bg-foreground/90 transition-all shadow-lg shadow-black/10"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-full hover:bg-foreground/90 transition-all"
             >
               Sign up for free
             </a>
           </div>
         </div>
 
-        {/* Hero Chat Input Box */}
-        <div className="relative max-w-3xl mx-auto mb-16">
+        {/* Hero Chat Input Box - positioned above curved arc */}
+        <div className="relative max-w-3xl mx-auto z-20">
           {/* Glassmorphic outer glow */}
           <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-b from-white/10 to-transparent blur-sm pointer-events-none" />
           
           {/* Main chat input card */}
-          <div className="relative bg-[#1e1e22] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/5">
+          <div className="relative bg-[#1a1a1e]/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
             {/* Input area */}
             <div className="px-5 py-4">
               <div className="flex items-start gap-3">
@@ -109,7 +112,13 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Curved bottom arc - removed for cleaner look */}
+      {/* Curved dark arc at bottom with glowing edge */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[200%] aspect-[3/1] translate-y-[60%]">
+        {/* Glow effect on top edge */}
+        <div className="absolute inset-0 rounded-t-[50%] bg-gradient-to-b from-orange-500/40 via-orange-500/10 to-transparent blur-2xl" />
+        {/* Dark arc */}
+        <div className="absolute inset-0 rounded-t-[50%] bg-background border-t border-orange-500/30 shadow-[0_-20px_80px_-20px_rgba(249,115,22,0.4)]" />
+      </div>
     </section>
   );
 };
