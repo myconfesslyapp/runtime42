@@ -1,3 +1,5 @@
+import logo from '@/assets/runtime42-logo.png';
+
 const Footer = () => {
   const linkGroups = [
     {
@@ -21,9 +23,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <a href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-foreground flex items-center justify-center">
-                <span className="text-background font-bold text-xs">✦</span>
-              </div>
+              <img src={logo} alt="runtime42" className="w-7 h-7" />
               <span className="text-lg font-semibold text-foreground">runtime42</span>
             </a>
             <p className="text-sm text-muted-foreground">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import logo from '@/assets/runtime42-logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,9 +15,7 @@ const Header = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="/" className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center">
-                <span className="text-background font-bold text-xs">▶</span>
-              </div>
+              <img src={logo} alt="runtime42" className="w-7 h-7" />
               <span className="text-base font-semibold text-foreground">runtime42</span>
             </a>
 
