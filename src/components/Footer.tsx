@@ -22,8 +22,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <a href="/" className="flex items-center gap-2.5 mb-4">
-              <img src={logo} alt="runtime42" className="w-7 h-7" />
+            <a href="/" className="flex items-center gap-2 mb-4">
+              <img src={logo} alt="runtime42" className="w-8 h-8" />
               <span className="text-lg font-semibold text-foreground">runtime42</span>
             </a>
             <p className="text-sm text-muted-foreground">

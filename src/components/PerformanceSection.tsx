@@ -62,7 +62,7 @@ const PerformanceSection = () => {
               
               {/* Gradient visual */}
               <div className="absolute bottom-0 right-0 w-full h-2/3 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/40 via-violet-600/50 to-transparent rounded-tl-[100px]" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/40 via-amber-500/50 to-transparent rounded-tl-[100px]" />
                 <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-card to-transparent" />
               </div>
             </div>

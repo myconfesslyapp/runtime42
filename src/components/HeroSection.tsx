@@ -4,9 +4,9 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden bg-background pt-40 sm:pt-48 pb-0">
       {/* Background Gradient Glows */}
-      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-gradient-to-br from-violet-500/40 via-purple-400/25 to-transparent blur-[150px] pointer-events-none -translate-x-1/4 -translate-y-1/4" />
-      <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-fuchsia-400/40 via-pink-400/25 to-transparent blur-[150px] pointer-events-none translate-x-1/4 -translate-y-1/4" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-purple-400/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-gradient-to-br from-orange-500/40 via-orange-400/25 to-transparent blur-[150px] pointer-events-none -translate-x-1/4 -translate-y-1/4" />
+      <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-amber-400/40 via-orange-400/25 to-transparent blur-[150px] pointer-events-none translate-x-1/4 -translate-y-1/4" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-orange-400/15 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
