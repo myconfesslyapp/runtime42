@@ -2,12 +2,15 @@ import { useState, useEffect, useCallback } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
   Globe, Code, BarChart3, Lightbulb, Share2, Loader2, 
-  History, Smartphone, Tablet, Monitor, RefreshCcw
+  History, Smartphone, Tablet, Monitor, RefreshCcw, Terminal
 } from 'lucide-react';
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 import DemoApp from '@/demo-project/DemoApp';
 import CodeViewer from '@/components/CodeViewer';
+import TerminalPanel from '@/components/TerminalPanel';
+import FileSearch from '@/components/FileSearch';
+import { toast } from 'sonner';
 
 interface Message {
   id: number;
@@ -32,6 +35,8 @@ const ProjectEditor = () => {
   const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
   const [activeTab, setActiveTab] = useState<TabType>('preview');
   const [previewKey, setPreviewKey] = useState(0);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+  const [isFileSearchOpen, setIsFileSearchOpen] = useState(false);
 
   const deviceSizes = {
     mobile: 'w-[375px]',
@@ -40,9 +45,30 @@ const ProjectEditor = () => {
   };
 
   const handleCodeChange = useCallback((filePath: string, newCode: string) => {
-    // Force preview refresh when code changes
     setPreviewKey(prev => prev + 1);
     console.log(`Code changed in ${filePath}:`, newCode.substring(0, 100) + '...');
+  }, []);
+
+  const handleFileSelect = useCallback((path: string) => {
+    setActiveTab('code');
+    toast.success(`Opening ${path.split('/').pop()}`);
+  }, []);
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
+        e.preventDefault();
+        setIsFileSearchOpen(true);
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === '`') {
+        e.preventDefault();
+        setIsTerminalOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
   useEffect(() => {
@@ -52,7 +78,6 @@ const ProjectEditor = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Check if there's an initial prompt from navigation
   useEffect(() => {
     const state = location.state as { initialPrompt?: string } | null;
     if (state?.initialPrompt) {
@@ -114,9 +139,15 @@ const ProjectEditor = () => {
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
+      {/* File Search Modal */}
+      <FileSearch 
+        isOpen={isFileSearchOpen} 
+        onClose={() => setIsFileSearchOpen(false)}
+        onSelectFile={handleFileSelect}
+      />
+
       {/* Top Header */}
       <header className="h-12 border-b border-border flex items-center justify-between px-4 bg-card flex-shrink-0">
-        {/* Left - Logo and Project Name */}
         <div className="flex items-center gap-3">
           <img src={logo} alt="runtime42" className="w-6 h-6 rounded-lg" />
           <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1 rounded-lg transition-colors">
@@ -125,14 +156,11 @@ const ProjectEditor = () => {
           </div>
         </div>
 
-        {/* Center - History, Devices, Tabs */}
         <div className="flex items-center gap-2">
-          {/* History */}
           <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
             <History className="w-4 h-4" />
           </button>
           
-          {/* Device Icons */}
           <div className="flex items-center gap-0.5">
             <button 
               onClick={() => setActiveDevice('mobile')}
@@ -160,7 +188,6 @@ const ProjectEditor = () => {
             </button>
           </div>
 
-          {/* Main Tabs */}
           <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-0.5 ml-2">
             <button 
               onClick={() => setActiveTab('preview')}
@@ -193,9 +220,15 @@ const ProjectEditor = () => {
           </div>
         </div>
 
-        {/* Right - URL Bar, Share, Publish */}
         <div className="flex items-center gap-3">
-          {/* URL Input */}
+          <button
+            onClick={() => setIsFileSearchOpen(true)}
+            className="flex items-center gap-2 px-2 py-1 text-xs text-muted-foreground hover:text-foreground bg-muted/50 rounded border border-border/50 hover:border-border transition-colors"
+          >
+            <span>Search</span>
+            <kbd className="px-1 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
+          </button>
+          
           <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-lg border border-border/50">
             <span className="text-xs text-muted-foreground">🔒</span>
             <span className="text-xs text-muted-foreground">/editor/{projectId || '1'}</span>
@@ -213,137 +246,143 @@ const ProjectEditor = () => {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
-        {/* Left Panel - Chat */}
-        <div className="w-[420px] flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {messages.length === 0 && (
-              <div className="text-center text-muted-foreground text-sm py-8">
-                Start a conversation to build your app
-              </div>
-            )}
-            
-            {messages.map((message) => (
-              <div key={message.id} className="space-y-1">
-                <div className="text-xs text-muted-foreground text-center">
-                  {message.timestamp}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
+          {/* Left Panel - Chat */}
+          <div className="w-[420px] flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {messages.length === 0 && (
+                <div className="text-center text-muted-foreground text-sm py-8">
+                  Start a conversation to build your app
                 </div>
-                <div className={`p-4 rounded-xl ${
-                  message.type === 'user' 
-                    ? 'bg-muted ml-8' 
-                    : 'bg-background border border-border mr-8'
-                }`}>
-                  <p className="text-sm text-foreground whitespace-pre-wrap">{message.content}</p>
+              )}
+              
+              {messages.map((message) => (
+                <div key={message.id} className="space-y-1">
+                  <div className="text-xs text-muted-foreground text-center">
+                    {message.timestamp}
+                  </div>
+                  <div className={`p-4 rounded-xl ${
+                    message.type === 'user' 
+                      ? 'bg-muted ml-8' 
+                      : 'bg-background border border-border mr-8'
+                  }`}>
+                    <p className="text-sm text-foreground whitespace-pre-wrap">{message.content}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {isThinking && (
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Lightbulb className="w-4 h-4" />
-                <span className="text-sm">Thinking</span>
-                <div className="flex gap-1">
-                  <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              {isThinking && (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Lightbulb className="w-4 h-4" />
+                  <span className="text-sm">Thinking</span>
+                  <div className="flex gap-1">
+                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          {/* Chat Input */}
-          <div className="p-4 border-t border-border">
-            <div className="bg-background border border-border rounded-xl overflow-hidden">
-              <div className="p-3">
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Ask runtime42..."
-                  className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
-                />
-              </div>
-              <div className="flex items-center justify-between px-3 py-2 border-t border-border/50">
-                <div className="flex items-center gap-1">
-                  <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-                    <Plus className="w-4 h-4" />
-                  </button>
+            <div className="p-4 border-t border-border">
+              <div className="bg-background border border-border rounded-xl overflow-hidden">
+                <div className="p-3">
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Ask runtime42..."
+                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                  />
                 </div>
-                <div className="flex items-center gap-1">
-                  <button className="h-8 px-3 rounded-lg hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
-                    <MessageSquare className="w-4 h-4" />
-                    Chat
-                  </button>
-                  <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-                    <AudioLines className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={handleSubmit}
-                    className="w-8 h-8 rounded-lg bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
-                  >
-                    <ArrowUp className="w-4 h-4" />
-                  </button>
+                <div className="flex items-center justify-between px-3 py-2 border-t border-border/50">
+                  <div className="flex items-center gap-1">
+                    <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button className="h-8 px-3 rounded-lg hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
+                      <MessageSquare className="w-4 h-4" />
+                      Chat
+                    </button>
+                    <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                      <AudioLines className="w-4 h-4" />
+                    </button>
+                    <button 
+                      onClick={handleSubmit}
+                      className="w-8 h-8 rounded-lg bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
+                    >
+                      <ArrowUp className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Right Panel - Preview/Code/Analytics */}
-        <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
-          <div className="flex-1 overflow-hidden bg-background">
-            {activeTab === 'preview' && (
-              <>
-                {isLoading ? (
-                  <div className="h-full flex items-center justify-center">
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      <span className="text-sm">Getting ready...</span>
-                    </div>
-                  </div>
-                ) : showPreview || projectId ? (
-                  <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
-                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
-                      <div className="h-full overflow-auto">
-                        <DemoApp key={previewKey} currentRoute={previewRoute} />
+          {/* Right Panel - Preview/Code/Analytics */}
+          <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+            <div className="flex-1 overflow-hidden bg-background">
+              {activeTab === 'preview' && (
+                <>
+                  {isLoading ? (
+                    <div className="h-full flex items-center justify-center">
+                      <div className="flex items-center gap-3 text-muted-foreground">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span className="text-sm">Getting ready...</span>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="h-full flex items-center justify-center">
-                    <div className="text-center max-w-md">
-                      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                        <img src={logo} alt="runtime42" className="w-12 h-12" />
+                  ) : showPreview || projectId ? (
+                    <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
+                      <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                        <div className="h-full overflow-auto">
+                          <DemoApp key={previewKey} currentRoute={previewRoute} />
+                        </div>
                       </div>
-                      <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
-                      <p className="text-muted-foreground text-sm">
-                        Describe features, get full apps. Data, hosting, auth, AI included.
-                      </p>
                     </div>
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      <div className="text-center max-w-md">
+                        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                          <img src={logo} alt="runtime42" className="w-12 h-12" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
+                        <p className="text-muted-foreground text-sm">
+                          Describe features, get full apps. Data, hosting, auth, AI included.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {activeTab === 'code' && (
+                <CodeViewer onCodeChange={handleCodeChange} />
+              )}
+
+              {activeTab === 'analytics' && (
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center max-w-md">
+                    <BarChart3 className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                    <h3 className="text-lg font-semibold text-foreground mb-2">Analytics Coming Soon</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Track your app performance, user engagement, and more.
+                    </p>
                   </div>
-                )}
-              </>
-            )}
-
-            {activeTab === 'code' && (
-              <CodeViewer onCodeChange={handleCodeChange} />
-            )}
-
-            {activeTab === 'analytics' && (
-              <div className="h-full flex items-center justify-center">
-                <div className="text-center max-w-md">
-                  <BarChart3 className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Analytics Coming Soon</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Track your app performance, user engagement, and more.
-                  </p>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
+
+        {/* Terminal Panel */}
+        <TerminalPanel 
+          isOpen={isTerminalOpen} 
+          onToggle={() => setIsTerminalOpen(!isTerminalOpen)} 
+        />
       </div>
     </div>
   );
