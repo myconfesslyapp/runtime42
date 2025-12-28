@@ -40,28 +40,18 @@ const BuildingScreen = ({ message = 'Building your idea..' }: BuildingScreenProp
   const CurrentTipIcon = tips[currentTip].icon;
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background gradient */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(180deg, hsl(var(--background)) 0%, hsl(40 30% 95%) 50%, hsl(25 60% 90%) 100%)',
-        }}
-      />
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-hidden bg-background">
+      {/* Background gradient - uses semantic tokens */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-muted/50" />
       
-      {/* Subtle radial glow */}
-      <div 
-        className="absolute inset-0 opacity-40"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 80%, hsl(25 70% 85%) 0%, transparent 60%)',
-        }}
-      />
+      {/* Subtle radial glow using primary color */}
+      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_50%_80%,hsl(var(--primary)/0.3)_0%,transparent_60%)]" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center">
-        {/* Logo with ring */}
+        {/* Logo with ring - themed */}
         <div className="relative mb-10">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-b from-orange-50 to-orange-100 flex items-center justify-center shadow-lg ring-8 ring-orange-50/50">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-b from-muted to-muted/80 flex items-center justify-center shadow-lg ring-8 ring-muted/50 dark:ring-muted/30">
             <img 
               src={logo} 
               alt="runtime42" 
@@ -77,8 +67,8 @@ const BuildingScreen = ({ message = 'Building your idea..' }: BuildingScreenProp
           {message}
         </h2>
 
-        {/* Progress bar */}
-        <div className="w-64 h-1 bg-muted/50 rounded-full overflow-hidden mb-16">
+        {/* Progress bar - themed */}
+        <div className="w-64 h-1 bg-muted rounded-full overflow-hidden mb-16">
           <div 
             className="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
