@@ -1,14 +1,30 @@
 const VisionSection = () => {
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
-      {/* Background gradient glows */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-600/30 via-amber-500/20 to-transparent blur-[150px] pointer-events-none -translate-x-1/4" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-orange-500/40 via-amber-500/20 to-transparent blur-[150px] pointer-events-none translate-x-1/4" />
-
-      {/* Curved arc at top */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[200px] -translate-y-1/2">
-        <div className="w-full h-full rounded-b-[50%] border-b border-white/10" />
-      </div>
+    <section className="relative py-32 bg-background overflow-hidden">
+      {/* Top curved line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      
+      {/* Bottom orange gradient glow */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-[60%] pointer-events-none"
+        style={{ 
+          background: 'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(249,115,22,0.4) 0%, rgba(251,146,60,0.2) 30%, rgba(234,88,12,0.1) 50%, transparent 70%)'
+        }}
+      />
+      {/* Left side glow */}
+      <div 
+        className="absolute bottom-0 left-0 w-1/2 h-[70%] pointer-events-none"
+        style={{ 
+          background: 'radial-gradient(ellipse at 0% 100%, rgba(180,83,9,0.35) 0%, rgba(249,115,22,0.15) 40%, transparent 70%)'
+        }}
+      />
+      {/* Right side glow */}
+      <div 
+        className="absolute bottom-0 right-0 w-1/2 h-[70%] pointer-events-none"
+        style={{ 
+          background: 'radial-gradient(ellipse at 100% 100%, rgba(180,83,9,0.35) 0%, rgba(249,115,22,0.15) 40%, transparent 70%)'
+        }}
+      />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
