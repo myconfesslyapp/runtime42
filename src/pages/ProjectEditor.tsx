@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
-  Globe, Code, BarChart3, Lightbulb, Share2, Loader2, 
-  History, Smartphone, Tablet, Monitor, RefreshCcw, Terminal
+  Globe, Code, BarChart3, Lightbulb, Share2,
+  History, Smartphone, Tablet, Monitor, RefreshCcw
 } from 'lucide-react';
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 import DemoApp from '@/demo-project/DemoApp';
 import CodeViewer from '@/components/CodeViewer';
-import TerminalPanel from '@/components/TerminalPanel';
 import FileSearch from '@/components/FileSearch';
+import BuildingScreen from '@/components/BuildingScreen';
 import { toast } from 'sonner';
 
 interface Message {
@@ -35,7 +35,6 @@ const ProjectEditor = () => {
   const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
   const [activeTab, setActiveTab] = useState<TabType>('preview');
   const [previewKey, setPreviewKey] = useState(0);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
   const [isFileSearchOpen, setIsFileSearchOpen] = useState(false);
 
   const deviceSizes = {
@@ -60,10 +59,6 @@ const ProjectEditor = () => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
         e.preventDefault();
         setIsFileSearchOpen(true);
-      }
-      if ((e.metaKey || e.ctrlKey) && e.key === '`') {
-        e.preventDefault();
-        setIsTerminalOpen(prev => !prev);
       }
     };
 
@@ -100,7 +95,7 @@ const ProjectEditor = () => {
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages(prev => [...prev, aiResponse]);
-      }, 2500);
+      }, 3500);
     }
   }, [location.state]);
 
@@ -126,7 +121,7 @@ const ProjectEditor = () => {
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages(prev => [...prev, aiResponse]);
-      }, 2000);
+      }, 3000);
     }
   };
 
@@ -246,143 +241,130 @@ const ProjectEditor = () => {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
-          {/* Left Panel - Chat */}
-          <div className="w-[420px] flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.length === 0 && (
-                <div className="text-center text-muted-foreground text-sm py-8">
-                  Start a conversation to build your app
+      <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
+        {/* Left Panel - Chat */}
+        <div className="w-[420px] flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {messages.length === 0 && (
+              <div className="text-center text-muted-foreground text-sm py-8">
+                Start a conversation to build your app
+              </div>
+            )}
+            
+            {messages.map((message) => (
+              <div key={message.id} className="space-y-1">
+                <div className="text-xs text-muted-foreground text-center">
+                  {message.timestamp}
                 </div>
-              )}
-              
-              {messages.map((message) => (
-                <div key={message.id} className="space-y-1">
-                  <div className="text-xs text-muted-foreground text-center">
-                    {message.timestamp}
-                  </div>
-                  <div className={`p-4 rounded-xl ${
-                    message.type === 'user' 
-                      ? 'bg-muted ml-8' 
-                      : 'bg-background border border-border mr-8'
-                  }`}>
-                    <p className="text-sm text-foreground whitespace-pre-wrap">{message.content}</p>
-                  </div>
+                <div className={`p-4 rounded-xl ${
+                  message.type === 'user' 
+                    ? 'bg-muted ml-8' 
+                    : 'bg-background border border-border mr-8'
+                }`}>
+                  <p className="text-sm text-foreground whitespace-pre-wrap">{message.content}</p>
                 </div>
-              ))}
+              </div>
+            ))}
 
-              {isThinking && (
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Lightbulb className="w-4 h-4" />
-                  <span className="text-sm">Thinking</span>
-                  <div className="flex gap-1">
-                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
+            {isThinking && (
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Lightbulb className="w-4 h-4" />
+                <span className="text-sm">Thinking</span>
+                <div className="flex gap-1">
+                  <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+          </div>
 
-            <div className="p-4 border-t border-border">
-              <div className="bg-background border border-border rounded-xl overflow-hidden">
-                <div className="p-3">
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Ask runtime42..."
-                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
-                  />
+          <div className="p-4 border-t border-border">
+            <div className="bg-background border border-border rounded-xl overflow-hidden">
+              <div className="p-3">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask runtime42..."
+                  className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                />
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 border-t border-border/50">
+                <div className="flex items-center gap-1">
+                  <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                    <Plus className="w-4 h-4" />
+                  </button>
                 </div>
-                <div className="flex items-center justify-between px-3 py-2 border-t border-border/50">
-                  <div className="flex items-center gap-1">
-                    <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-                      <Plus className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <button className="h-8 px-3 rounded-lg hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
-                      <MessageSquare className="w-4 h-4" />
-                      Chat
-                    </button>
-                    <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-                      <AudioLines className="w-4 h-4" />
-                    </button>
-                    <button 
-                      onClick={handleSubmit}
-                      className="w-8 h-8 rounded-lg bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
-                    >
-                      <ArrowUp className="w-4 h-4" />
-                    </button>
-                  </div>
+                <div className="flex items-center gap-1">
+                  <button className="h-8 px-3 rounded-lg hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
+                    <MessageSquare className="w-4 h-4" />
+                    Chat
+                  </button>
+                  <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                    <AudioLines className="w-4 h-4" />
+                  </button>
+                  <button 
+                    onClick={handleSubmit}
+                    className="w-8 h-8 rounded-lg bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
+                  >
+                    <ArrowUp className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Right Panel - Preview/Code/Analytics */}
-          <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
-            <div className="flex-1 overflow-hidden bg-background">
-              {activeTab === 'preview' && (
-                <>
-                  {isLoading ? (
-                    <div className="h-full flex items-center justify-center">
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        <span className="text-sm">Getting ready...</span>
-                      </div>
-                    </div>
-                  ) : showPreview || projectId ? (
-                    <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
-                      <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
-                        <div className="h-full overflow-auto">
-                          <DemoApp key={previewKey} currentRoute={previewRoute} />
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="h-full flex items-center justify-center">
-                      <div className="text-center max-w-md">
-                        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                          <img src={logo} alt="runtime42" className="w-12 h-12" />
-                        </div>
-                        <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
-                        <p className="text-muted-foreground text-sm">
-                          Describe features, get full apps. Data, hosting, auth, AI included.
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-
-              {activeTab === 'code' && (
-                <CodeViewer onCodeChange={handleCodeChange} />
-              )}
-
-              {activeTab === 'analytics' && (
-                <div className="h-full flex items-center justify-center">
-                  <div className="text-center max-w-md">
-                    <BarChart3 className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-                    <h3 className="text-lg font-semibold text-foreground mb-2">Analytics Coming Soon</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Track your app performance, user engagement, and more.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
 
-        {/* Terminal Panel */}
-        <TerminalPanel 
-          isOpen={isTerminalOpen} 
-          onToggle={() => setIsTerminalOpen(!isTerminalOpen)} 
-        />
+        {/* Right Panel - Preview/Code/Analytics */}
+        <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+          <div className="flex-1 overflow-hidden bg-background">
+            {activeTab === 'preview' && (
+              <>
+                {isLoading || isThinking ? (
+                  <BuildingScreen message={isLoading ? 'Getting ready..' : 'Building your idea..'} />
+                ) : showPreview || projectId ? (
+                  <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
+                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                      <div className="h-full overflow-auto">
+                        <DemoApp key={previewKey} currentRoute={previewRoute} />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-full flex items-center justify-center">
+                    <div className="text-center max-w-md">
+                      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                        <img src={logo} alt="runtime42" className="w-12 h-12" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Describe features, get full apps. Data, hosting, auth, AI included.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === 'code' && (
+              <CodeViewer onCodeChange={handleCodeChange} />
+            )}
+
+            {activeTab === 'analytics' && (
+              <div className="h-full flex items-center justify-center">
+                <div className="text-center max-w-md">
+                  <BarChart3 className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Analytics Coming Soon</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Track your app performance, user engagement, and more.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
