@@ -25,9 +25,9 @@ const Header = () => {
         <div className="bg-background/80 backdrop-blur-2xl border border-border rounded-full px-6 py-2.5 shadow-lg shadow-black/10 dark:shadow-black/20">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2">
-              <img src={logo} alt="runtime42" className="w-8 h-8" />
-              <span className="text-base font-semibold text-foreground">runtime42</span>
+            <a href="/" className="flex items-center gap-2.5">
+              <img src={logo} alt="runtime42" className="w-10 h-10" />
+              <span className="text-lg font-semibold text-foreground">runtime42</span>
             </a>
 
             {/* Desktop Navigation */}
