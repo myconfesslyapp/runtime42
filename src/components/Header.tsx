@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { Link } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 
 const Header = () => {
@@ -25,10 +26,10 @@ const Header = () => {
         <div className="bg-background/80 backdrop-blur-2xl border border-border rounded-full px-6 py-2.5 shadow-lg shadow-black/10 dark:shadow-black/20">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2.5">
+            <Link to="/" className="flex items-center gap-2.5">
               <img src={logo} alt="runtime42" className="w-10 h-10" />
               <span className="text-lg font-semibold text-foreground">runtime42</span>
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-7">
@@ -53,18 +54,18 @@ const Header = () => {
               >
                 {mounted && (resolvedTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />)}
               </button>
-              <a
-                href="#demo"
+              <Link
+                to="/auth"
                 className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors"
               >
-                Request a demo
-              </a>
-              <a
-                href="#signup"
+                Sign in
+              </Link>
+              <Link
+                to="/auth"
                 className="px-4 py-2 border border-border text-foreground text-sm font-medium rounded-full hover:bg-muted/50 transition-colors"
               >
                 Sign up
-              </a>
+              </Link>
             </div>
 
             {/* Mobile: Theme Toggle + Menu Button */}
@@ -101,18 +102,20 @@ const Header = () => {
                 </a>
               ))}
               <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-border">
-                <a
-                  href="#demo"
+                <Link
+                  to="/auth"
                   className="px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full text-center"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  Request a demo
-                </a>
-                <a
-                  href="#signup"
+                  Sign in
+                </Link>
+                <Link
+                  to="/auth"
                   className="px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-full text-center"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Sign up
-                </a>
+                </Link>
               </div>
             </nav>
           </div>
