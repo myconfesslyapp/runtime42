@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp, ExternalLink, Heart } from 'lucide-react';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/AppSidebar';
 
 const communityProjects = [
   {
@@ -77,10 +79,13 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] overflow-hidden flex flex-col">
-        {/* Gradient background */}
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        <AppSidebar />
+        <SidebarInset className="flex-1">
+          {/* Hero Section */}
+          <section className="relative min-h-[70vh] overflow-hidden flex flex-col">
+            {/* Gradient background */}
         <div 
           className="absolute top-0 left-0 w-[70%] h-full pointer-events-none"
           style={{ 
@@ -229,7 +234,9 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-    </div>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 };
 
