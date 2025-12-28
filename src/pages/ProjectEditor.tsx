@@ -7,6 +7,7 @@ import {
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 import DemoApp from '@/demo-project/DemoApp';
+import CodeViewer from '@/components/CodeViewer';
 
 interface Message {
   id: number;
@@ -14,6 +15,9 @@ interface Message {
   content: string;
   timestamp: string;
 }
+
+type DeviceType = 'mobile' | 'tablet' | 'desktop';
+type TabType = 'preview' | 'code' | 'analytics';
 
 const ProjectEditor = () => {
   const { projectId } = useParams();
@@ -25,6 +29,14 @@ const ProjectEditor = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [projectName] = useState(projectId ? 'Demo Project' : 'New Project');
   const previewRoute = '/';
+  const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
+  const [activeTab, setActiveTab] = useState<TabType>('preview');
+
+  const deviceSizes = {
+    mobile: 'w-[375px]',
+    tablet: 'w-[768px]',
+    desktop: 'w-full'
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,7 +64,7 @@ const ProjectEditor = () => {
         const aiResponse: Message = {
           id: Date.now() + 1,
           type: 'assistant',
-          content: "I've created a SaaS landing page for you! The preview is now showing on the right. You can navigate to different pages using the route buttons below the preview.",
+          content: "I've created a SaaS landing page for you! The preview is now showing on the right.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages(prev => [...prev, aiResponse]);
@@ -78,7 +90,7 @@ const ProjectEditor = () => {
         const aiResponse: Message = {
           id: Date.now() + 1,
           type: 'assistant',
-          content: "Done! I've updated the preview with your changes. Check out the landing page on the right panel.",
+          content: "Done! I've updated the preview with your changes.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages(prev => [...prev, aiResponse]);
@@ -115,27 +127,57 @@ const ProjectEditor = () => {
           
           {/* Device Icons */}
           <div className="flex items-center gap-0.5">
-            <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            <button 
+              onClick={() => setActiveDevice('mobile')}
+              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                activeDevice === 'mobile' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <Smartphone className="w-4 h-4" />
             </button>
-            <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            <button 
+              onClick={() => setActiveDevice('tablet')}
+              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                activeDevice === 'tablet' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <Tablet className="w-4 h-4" />
             </button>
-            <button className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground">
+            <button 
+              onClick={() => setActiveDevice('desktop')}
+              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                activeDevice === 'desktop' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <Monitor className="w-4 h-4" />
             </button>
           </div>
 
           {/* Main Tabs */}
           <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-0.5 ml-2">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-background text-foreground text-sm font-medium shadow-sm">
+            <button 
+              onClick={() => setActiveTab('preview')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'preview' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <Globe className="w-4 h-4" />
               Preview
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
+            <button 
+              onClick={() => setActiveTab('code')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'code' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <Code className="w-4 h-4" />
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
+            <button 
+              onClick={() => setActiveTab('analytics')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'analytics' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
               <BarChart3 className="w-4 h-4" />
             </button>
             <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
@@ -242,36 +284,58 @@ const ProjectEditor = () => {
           </div>
         </div>
 
-        {/* Right Panel - Preview */}
+        {/* Right Panel - Preview/Code/Analytics */}
         <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
-          {/* Preview Content - Clean, no browser chrome */}
           <div className="flex-1 overflow-hidden bg-background">
-            {isLoading ? (
-              <div className="h-full flex items-center justify-center">
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span className="text-sm">Getting ready...</span>
-                </div>
-              </div>
-            ) : showPreview || projectId ? (
-              <div className="h-full overflow-auto">
-                <DemoApp currentRoute={previewRoute} />
-              </div>
-            ) : (
+            {activeTab === 'preview' && (
+              <>
+                {isLoading ? (
+                  <div className="h-full flex items-center justify-center">
+                    <div className="flex items-center gap-3 text-muted-foreground">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span className="text-sm">Getting ready...</span>
+                    </div>
+                  </div>
+                ) : showPreview || projectId ? (
+                  <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
+                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                      <div className="h-full overflow-auto">
+                        <DemoApp currentRoute={previewRoute} />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-full flex items-center justify-center">
+                    <div className="text-center max-w-md">
+                      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                        <img src={logo} alt="runtime42" className="w-12 h-12" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Describe features, get full apps. Data, hosting, auth, AI included.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === 'code' && (
+              <CodeViewer />
+            )}
+
+            {activeTab === 'analytics' && (
               <div className="h-full flex items-center justify-center">
                 <div className="text-center max-w-md">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                    <img src={logo} alt="runtime42" className="w-12 h-12" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
+                  <BarChart3 className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Analytics Coming Soon</h3>
                   <p className="text-muted-foreground text-sm">
-                    Describe features, get full apps. Data, hosting, auth, AI included.
+                    Track your app performance, user engagement, and more.
                   </p>
                 </div>
               </div>
             )}
           </div>
-
         </div>
       </div>
     </div>
