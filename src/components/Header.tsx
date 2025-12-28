@@ -1,16 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import logo from '@/assets/runtime42-logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = ['Product', 'How it works', 'Pricing', 'Docs'];
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
   return (
@@ -46,7 +51,7 @@ const Header = () => {
                 className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
                 aria-label="Toggle theme"
               >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                {mounted && (resolvedTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />)}
               </button>
               <a
                 href="#demo"
@@ -69,7 +74,7 @@ const Header = () => {
                 className="p-2 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Toggle theme"
               >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                {mounted && (resolvedTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />)}
               </button>
               <button
                 className="p-2 text-foreground"
