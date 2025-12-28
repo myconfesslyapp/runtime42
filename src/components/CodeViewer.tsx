@@ -1,8 +1,44 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ChevronRight, ChevronDown, File, Folder, FolderOpen, Save } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Highlight, themes } from 'prism-react-renderer';
+import { Highlight, themes, type PrismTheme } from 'prism-react-renderer';
 import { toast } from 'sonner';
+
+// Custom light theme similar to the reference image
+const lightTheme: PrismTheme = {
+  plain: {
+    color: '#1e1e1e',
+    backgroundColor: 'transparent',
+  },
+  styles: [
+    { types: ['comment', 'prolog', 'doctype', 'cdata'], style: { color: '#6a9955' } },
+    { types: ['punctuation'], style: { color: '#1e1e1e' } },
+    { types: ['property', 'tag', 'boolean', 'number', 'constant', 'symbol'], style: { color: '#0000ff' } },
+    { types: ['selector', 'attr-name', 'string', 'char', 'builtin', 'inserted'], style: { color: '#a31515' } },
+    { types: ['operator', 'entity', 'url'], style: { color: '#1e1e1e' } },
+    { types: ['atrule', 'attr-value', 'keyword'], style: { color: '#0000ff' } },
+    { types: ['function', 'class-name'], style: { color: '#795e26' } },
+    { types: ['regex', 'important', 'variable'], style: { color: '#ee0000' } },
+  ],
+};
+
+// Custom grey theme
+const greyTheme: PrismTheme = {
+  plain: {
+    color: '#d4d4d4',
+    backgroundColor: 'transparent',
+  },
+  styles: [
+    { types: ['comment', 'prolog', 'doctype', 'cdata'], style: { color: '#6a9955' } },
+    { types: ['punctuation'], style: { color: '#d4d4d4' } },
+    { types: ['property', 'tag', 'boolean', 'number', 'constant', 'symbol'], style: { color: '#4fc1ff' } },
+    { types: ['selector', 'attr-name', 'string', 'char', 'builtin', 'inserted'], style: { color: '#ce9178' } },
+    { types: ['operator', 'entity', 'url'], style: { color: '#d4d4d4' } },
+    { types: ['atrule', 'attr-value', 'keyword'], style: { color: '#569cd6' } },
+    { types: ['function', 'class-name'], style: { color: '#dcdcaa' } },
+    { types: ['regex', 'important', 'variable'], style: { color: '#d16969' } },
+  ],
+};
 
 interface FileNode {
   name: string;
@@ -293,6 +329,41 @@ const CodeViewer = ({ className, onCodeChange }: CodeViewerProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState<string>('');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'grey'>('dark');
+
+  // Detect current theme
+  useEffect(() => {
+    const detectTheme = () => {
+      const html = document.documentElement;
+      if (html.classList.contains('grey')) {
+        setCurrentTheme('grey');
+      } else if (html.classList.contains('dark')) {
+        setCurrentTheme('dark');
+      } else {
+        setCurrentTheme('light');
+      }
+    };
+
+    detectTheme();
+    
+    // Observe class changes on html element
+    const observer = new MutationObserver(detectTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Get the appropriate theme for syntax highlighting
+  const getCodeTheme = () => {
+    switch (currentTheme) {
+      case 'light':
+        return lightTheme;
+      case 'grey':
+        return greyTheme;
+      default:
+        return themes.vsDark;
+    }
+  };
 
   const handleSelectFile = (path: string, content: string) => {
     if (hasUnsavedChanges) {
@@ -383,21 +454,21 @@ const CodeViewer = ({ className, onCodeChange }: CodeViewerProps) => {
         )}
 
         {/* Code Editor / Viewer */}
-        <div className="flex-1 overflow-hidden bg-[#1e1e1e] relative">
+        <div className="flex-1 overflow-hidden bg-background relative">
           {isEditing ? (
             <textarea
               value={editedContent || fileContent}
               onChange={handleCodeEdit}
               onKeyDown={handleKeyDown}
               spellCheck={false}
-              className="w-full h-full p-4 font-mono text-sm bg-transparent text-gray-100 resize-none outline-none leading-relaxed"
+              className="w-full h-full p-4 font-mono text-sm bg-transparent text-foreground resize-none outline-none leading-relaxed"
               style={{ tabSize: 2 }}
             />
           ) : (
             <ScrollArea className="h-full">
               {fileContent ? (
                 <Highlight
-                  theme={themes.vsDark}
+                  theme={getCodeTheme()}
                   code={fileContent}
                   language="tsx"
                 >
@@ -408,7 +479,7 @@ const CodeViewer = ({ className, onCodeChange }: CodeViewerProps) => {
                     >
                       {tokens.map((line, i) => (
                         <div key={i} {...getLineProps({ line })} className="flex">
-                          <span className="w-10 text-right pr-4 text-muted-foreground/50 select-none text-xs">
+                          <span className="w-10 text-right pr-4 text-muted-foreground/60 select-none text-xs">
                             {i + 1}
                           </span>
                           <span>
