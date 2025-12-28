@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp, ExternalLink } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 
@@ -31,13 +32,14 @@ const userProjects = [
 ];
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState('');
   const userName = 'Venkata Govind Neelapu';
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
-      console.log('User input:', inputValue);
-      setInputValue('');
+      // Navigate to editor with the prompt
+      navigate('/editor', { state: { initialPrompt: inputValue } });
     }
   };
 
@@ -46,6 +48,10 @@ const Dashboard = () => {
       e.preventDefault();
       handleSubmit();
     }
+  };
+
+  const handleOpenProject = (projectId: number) => {
+    navigate(`/editor/${projectId}`);
   };
 
   return (
@@ -197,7 +203,10 @@ const Dashboard = () => {
                   
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-muted-foreground">Edited {project.lastEdited}</span>
-                    <button className="px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+                    <button 
+                      onClick={() => handleOpenProject(project.id)}
+                      className="px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+                    >
                       Open
                     </button>
                   </div>
