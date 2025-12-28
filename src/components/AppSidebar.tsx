@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Home, Search, LayoutGrid, Star, Users, Compass, FileBox, GraduationCap, Settings, Sun, Moon, Monitor, HelpCircle, FileText, Users2, LogOut, ChevronRight, Check } from 'lucide-react';
+import { Home, Search, LayoutGrid, Star, Users, Compass, FileBox, GraduationCap, Settings, Sun, Moon, HelpCircle, FileText, Users2, LogOut, ChevronRight, Check } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTheme } from 'next-themes';
 import logo from '@/assets/runtime42-logo.png';
@@ -217,9 +216,9 @@ export function AppSidebar() {
                       style={{ background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)' }}
                     />
                     <div 
-                      onClick={() => setTheme('system')}
-                      className={`flex-1 h-12 rounded-lg cursor-pointer border-2 transition-all overflow-hidden ${theme === 'system' ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-primary/50'}`}
-                      style={{ background: 'linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%)' }}
+                      onClick={() => setTheme('grey')}
+                      className={`flex-1 h-12 rounded-lg cursor-pointer border-2 transition-all overflow-hidden backdrop-blur-xl ${theme === 'grey' ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-primary/50'}`}
+                      style={{ background: 'linear-gradient(135deg, rgba(30,30,40,0.9) 0%, rgba(50,50,65,0.8) 50%, rgba(70,70,90,0.9) 100%)' }}
                     />
                   </div>
                   
@@ -240,12 +239,12 @@ export function AppSidebar() {
                     {theme === 'dark' && <Check className="w-4 h-4 ml-auto text-primary" />}
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => setTheme('system')} 
+                    onClick={() => setTheme('grey')} 
                     className="gap-3 py-2.5 px-3 cursor-pointer rounded-lg"
                   >
-                    <Monitor className="w-4 h-4" />
-                    <span>System</span>
-                    {theme === 'system' && <Check className="w-4 h-4 ml-auto text-primary" />}
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-br from-slate-400 to-slate-600" />
+                    <span>Grey</span>
+                    {theme === 'grey' && <Check className="w-4 h-4 ml-auto text-primary" />}
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
