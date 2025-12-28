@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FinalCTA = () => {
   return (
@@ -16,13 +17,13 @@ const FinalCTA = () => {
           <p className="text-xl text-muted-foreground mb-10">
             Start with clarity. Scale with confidence.
           </p>
-          <a
-            href="#start"
+          <Link
+            to="/auth"
             className="btn-primary inline-flex items-center gap-2 text-lg px-8 py-4"
           >
             Start building for free
             <ArrowRight size={20} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
