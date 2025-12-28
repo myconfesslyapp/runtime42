@@ -456,14 +456,45 @@ const CodeViewer = ({ className, onCodeChange }: CodeViewerProps) => {
         {/* Code Editor / Viewer */}
         <div className="flex-1 overflow-hidden bg-background relative">
           {isEditing ? (
-            <textarea
-              value={editedContent || fileContent}
-              onChange={handleCodeEdit}
-              onKeyDown={handleKeyDown}
-              spellCheck={false}
-              className="w-full h-full p-4 font-mono text-sm bg-transparent text-foreground resize-none outline-none leading-relaxed"
-              style={{ tabSize: 2 }}
-            />
+            <div className="relative h-full">
+              {/* Syntax highlighted background */}
+              <div className="absolute inset-0 overflow-auto pointer-events-none">
+                <Highlight
+                  theme={getCodeTheme()}
+                  code={editedContent || fileContent}
+                  language="tsx"
+                >
+                  {({ style, tokens, getLineProps, getTokenProps }) => (
+                    <pre
+                      className="p-4 text-sm font-mono leading-relaxed min-h-full"
+                      style={{ ...style, background: 'transparent' }}
+                    >
+                      {tokens.map((line, i) => (
+                        <div key={i} {...getLineProps({ line })} className="flex">
+                          <span className="w-10 text-right pr-4 text-muted-foreground/60 select-none text-xs">
+                            {i + 1}
+                          </span>
+                          <span>
+                            {line.map((token, key) => (
+                              <span key={key} {...getTokenProps({ token })} />
+                            ))}
+                          </span>
+                        </div>
+                      ))}
+                    </pre>
+                  )}
+                </Highlight>
+              </div>
+              {/* Transparent textarea for editing */}
+              <textarea
+                value={editedContent || fileContent}
+                onChange={handleCodeEdit}
+                onKeyDown={handleKeyDown}
+                spellCheck={false}
+                className="absolute inset-0 w-full h-full p-4 pl-14 font-mono text-sm bg-transparent text-transparent caret-foreground resize-none outline-none leading-relaxed overflow-auto"
+                style={{ tabSize: 2, caretColor: 'hsl(var(--foreground))' }}
+              />
+            </div>
           ) : (
             <ScrollArea className="h-full">
               {fileContent ? (
