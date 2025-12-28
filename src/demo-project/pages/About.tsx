@@ -1,14 +1,20 @@
 import { ArrowLeft, Users, Target, Award } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
-const About = () => {
+interface AboutProps {
+  onNavigate?: (route: string) => void;
+}
+
+const About = ({ onNavigate }: AboutProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-20 px-6">
       <div className="max-w-4xl mx-auto">
-        <Link to="/demo" className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-8 transition-colors">
+        <button 
+          onClick={() => onNavigate?.('/')}
+          className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-8 transition-colors"
+        >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
-        </Link>
+        </button>
 
         <h1 className="text-4xl md:text-5xl font-bold mb-6">About SaaSify</h1>
         <p className="text-xl text-white/60 mb-12">

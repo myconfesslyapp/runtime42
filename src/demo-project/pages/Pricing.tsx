@@ -1,5 +1,8 @@
 import { Check, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+
+interface PricingProps {
+  onNavigate?: (route: string) => void;
+}
 
 const plans = [
   {
@@ -25,14 +28,17 @@ const plans = [
   },
 ];
 
-const Pricing = () => {
+const Pricing = ({ onNavigate }: PricingProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <Link to="/demo" className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-8 transition-colors">
+        <button 
+          onClick={() => onNavigate?.('/')}
+          className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-8 transition-colors"
+        >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
-        </Link>
+        </button>
         
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>

@@ -6,7 +6,6 @@ import {
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 import DemoApp from '@/demo-project/DemoApp';
-import { MemoryRouter } from 'react-router-dom';
 
 interface Message {
   id: number;
@@ -254,9 +253,7 @@ const ProjectEditor = () => {
               </div>
             ) : showPreview || projectId ? (
               <div className="h-full overflow-auto">
-                <MemoryRouter initialEntries={[previewRoute]}>
-                  <DemoApp />
-                </MemoryRouter>
+                <DemoApp currentRoute={previewRoute} />
               </div>
             ) : (
               <div className="h-full flex items-center justify-center">
