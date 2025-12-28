@@ -1,6 +1,24 @@
+import { useState } from 'react';
 import { Plus, Paperclip, Palette, MessageSquare, AudioLines, ArrowUp } from 'lucide-react';
 
 const HeroSection = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSubmit = () => {
+    if (inputValue.trim()) {
+      console.log('User input:', inputValue);
+      // Handle the submission - could redirect to demo or show a response
+      setInputValue('');
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden flex flex-col bg-background">
       {/* Soft orange gradient glow from left side */}
@@ -61,14 +79,21 @@ const HeroSection = () => {
           <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-b from-white/10 to-transparent blur-sm pointer-events-none" />
           
           {/* Main chat input card */}
-          <div className="relative bg-[#1a1a1e]/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
+          <div className="relative bg-card/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-border">
             {/* Input area */}
             <div className="px-5 py-4">
               <div className="flex items-start gap-3">
                 <div className="flex-1 relative">
-                  <div className="flex items-center gap-1 text-muted-foreground/70">
-                    <span className="text-orange-400">|</span>
-                    <span className="text-sm">Ask runtime42 to build a SaaS dashboard with auth, APIs, and a scalable backend...</span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-primary text-lg font-bold">|</span>
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Ask runtime42 to build a SaaS dashboard with auth, APIs, and a scalable backend..."
+                      className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 outline-none w-full"
+                    />
                   </div>
                 </div>
                 {/* Status indicator */}
@@ -79,16 +104,16 @@ const HeroSection = () => {
             </div>
             
             {/* Bottom toolbar */}
-            <div className="flex items-center justify-between px-4 py-3 border-t border-white/5">
+            <div className="flex items-center justify-between px-4 py-3 border-t border-border/50">
               <div className="flex items-center gap-2">
-                <button className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                <button className="w-8 h-8 rounded-lg bg-muted/50 hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
                   <Plus className="w-4 h-4" />
                 </button>
-                <button className="h-8 px-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
+                <button className="h-8 px-3 rounded-lg bg-muted/50 hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
                   <Paperclip className="w-4 h-4" />
                   <span>Attach</span>
                 </button>
-                <button className="h-8 px-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
+                <button className="h-8 px-3 rounded-lg bg-muted/50 hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
                   <Palette className="w-4 h-4" />
                   <span>Theme</span>
                   <span className="text-[10px] opacity-50">▼</span>
@@ -96,14 +121,17 @@ const HeroSection = () => {
               </div>
               
               <div className="flex items-center gap-2">
-                <button className="h-8 px-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
+                <button className="h-8 px-3 rounded-lg bg-muted/50 hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
                   <MessageSquare className="w-4 h-4" />
                   <span>Chat</span>
                 </button>
-                <button className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                <button className="w-8 h-8 rounded-lg bg-muted/50 hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
                   <AudioLines className="w-4 h-4" />
                 </button>
-                <button className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/15 flex items-center justify-center text-foreground transition-colors">
+                <button 
+                  onClick={handleSubmit}
+                  className="w-8 h-8 rounded-lg bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center text-foreground transition-colors"
+                >
                   <ArrowUp className="w-4 h-4" />
                 </button>
               </div>
