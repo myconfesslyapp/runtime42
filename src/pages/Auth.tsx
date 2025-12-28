@@ -33,9 +33,14 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
   }, [text, delay]);
 
   return (
-    <span className="text-sm text-muted-foreground font-mono">
+    <span className="text-sm text-muted-foreground font-mono inline-flex items-center">
       {displayedText}
-      {!isComplete && <span className="text-primary animate-pulse">|</span>}
+      {!isComplete && (
+        <span 
+          className="inline-block w-[2px] h-[1.1em] bg-primary ml-0.5"
+          style={{ animation: 'blink 1s step-end infinite' }}
+        />
+      )}
     </span>
   );
 };
