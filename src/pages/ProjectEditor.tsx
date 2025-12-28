@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
   Globe, Code, BarChart3, Lightbulb, Share2, Loader2, 
@@ -31,12 +31,19 @@ const ProjectEditor = () => {
   const previewRoute = '/';
   const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
   const [activeTab, setActiveTab] = useState<TabType>('preview');
+  const [previewKey, setPreviewKey] = useState(0);
 
   const deviceSizes = {
     mobile: 'w-[375px]',
     tablet: 'w-[768px]',
     desktop: 'w-full'
   };
+
+  const handleCodeChange = useCallback((filePath: string, newCode: string) => {
+    // Force preview refresh when code changes
+    setPreviewKey(prev => prev + 1);
+    console.log(`Code changed in ${filePath}:`, newCode.substring(0, 100) + '...');
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -300,7 +307,7 @@ const ProjectEditor = () => {
                   <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
                     <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
                       <div className="h-full overflow-auto">
-                        <DemoApp currentRoute={previewRoute} />
+                        <DemoApp key={previewKey} currentRoute={previewRoute} />
                       </div>
                     </div>
                   </div>
@@ -321,7 +328,7 @@ const ProjectEditor = () => {
             )}
 
             {activeTab === 'code' && (
-              <CodeViewer />
+              <CodeViewer onCodeChange={handleCodeChange} />
             )}
 
             {activeTab === 'analytics' && (
