@@ -213,14 +213,28 @@ const Auth = () => {
 
       {/* Right side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-background relative overflow-hidden items-center justify-center">
-        {/* Background glows */}
-        <div className="absolute inset-0">
-          <div className="glow-orb glow-orb-primary w-[500px] h-[500px] top-1/4 right-0 opacity-40" />
-          <div className="glow-orb glow-orb-accent w-[400px] h-[400px] bottom-1/4 left-1/4 opacity-30" />
-        </div>
+        {/* Gradient from bottom-right corner like hero section */}
+        <div 
+          className="absolute bottom-0 right-0 w-full h-full pointer-events-none"
+          style={{ 
+            background: 'radial-gradient(ellipse at 100% 100%, rgba(249,115,22,0.35) 0%, rgba(251,146,60,0.2) 25%, rgba(234,88,12,0.1) 45%, transparent 70%)'
+          }}
+        />
+        <div 
+          className="absolute bottom-0 right-0 w-[70%] h-[70%] pointer-events-none"
+          style={{ 
+            background: 'radial-gradient(ellipse at 100% 100%, rgba(251,191,36,0.2) 0%, rgba(249,115,22,0.1) 30%, transparent 60%)'
+          }}
+        />
+        <div 
+          className="absolute bottom-0 right-0 w-[50%] h-[50%] pointer-events-none blur-3xl"
+          style={{ 
+            background: 'radial-gradient(ellipse at 100% 100%, rgba(251,146,60,0.25) 0%, transparent 70%)'
+          }}
+        />
 
         {/* Content */}
-        <div className="relative z-10 text-center px-12">
+        <div className="relative z-10 text-center px-12 max-w-lg">
           {/* Live indicator */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/30 backdrop-blur-sm mb-8">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -229,18 +243,40 @@ const Auth = () => {
             </span>
           </div>
 
-          {/* Headline */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+          {/* Headline with typewriter style */}
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
             Backend has evolved.
             <br />
             <span className="text-gradient">Discover it now.</span>
           </h2>
+
+          {/* Description */}
+          <p className="text-base text-muted-foreground leading-relaxed mb-8">
+            Build production-ready backends with AI-powered code generation. 
+            Ship faster with scalable infrastructure, authentication, and APIs — all in one platform.
+          </p>
+
+          {/* Typewriter-style feature list */}
+          <div className="text-left space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="text-primary animate-pulse">▸</span>
+              <span className="text-sm text-muted-foreground font-mono">Scalable infrastructure out of the box</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-primary animate-pulse">▸</span>
+              <span className="text-sm text-muted-foreground font-mono">Authentication & authorization built-in</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-primary animate-pulse">▸</span>
+              <span className="text-sm text-muted-foreground font-mono">Real system design, not broken code</span>
+            </div>
+          </div>
         </div>
 
-        {/* Decorative 3D elements placeholder */}
+        {/* Decorative 3D elements */}
         <div className="absolute bottom-0 right-0 w-2/3 h-1/2 opacity-50">
-          <div className="absolute bottom-10 right-10 w-64 h-64 border border-border/30 rounded-2xl transform rotate-12 bg-gradient-to-br from-primary/10 to-transparent" />
-          <div className="absolute bottom-20 right-32 w-48 h-48 border border-border/20 rounded-xl transform -rotate-6 bg-gradient-to-br from-accent/10 to-transparent" />
+          <div className="absolute bottom-10 right-10 w-64 h-64 border border-primary/30 rounded-2xl transform rotate-12 bg-gradient-to-br from-primary/10 to-transparent" />
+          <div className="absolute bottom-20 right-32 w-48 h-48 border border-primary/20 rounded-xl transform -rotate-6 bg-gradient-to-br from-primary/5 to-transparent" />
         </div>
       </div>
     </div>
