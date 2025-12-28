@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { 
-  Plus, MessageSquare, AudioLines, ArrowUp, X, ChevronDown,
-  Globe, Cloud, Code, BarChart3, Lightbulb, Share2, Loader2
+  Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
+  Globe, Cloud, Code, BarChart3, Lightbulb, Share2, Loader2, RefreshCw, Expand
 } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
+import DemoApp from '@/demo-project/DemoApp';
+import { MemoryRouter } from 'react-router-dom';
 
 interface Message {
   id: number;
@@ -14,21 +16,49 @@ interface Message {
 }
 
 const ProjectEditor = () => {
-  const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [projectName] = useState(projectId ? 'My Project' : 'New Project');
+  const [projectName] = useState(projectId ? 'Demo Project' : 'New Project');
+  const [previewRoute, setPreviewRoute] = useState('/');
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Check if there's an initial prompt from navigation
+  useEffect(() => {
+    const state = location.state as { initialPrompt?: string } | null;
+    if (state?.initialPrompt) {
+      const newMessage: Message = {
+        id: Date.now(),
+        type: 'user',
+        content: state.initialPrompt,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages([newMessage]);
+      setIsThinking(true);
+      
+      setTimeout(() => {
+        setIsThinking(false);
+        setShowPreview(true);
+        const aiResponse: Message = {
+          id: Date.now() + 1,
+          type: 'assistant',
+          content: "I've created a SaaS landing page for you! The preview is now showing on the right. You can navigate to different pages using the route buttons below the preview.",
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        };
+        setMessages(prev => [...prev, aiResponse]);
+      }, 2500);
+    }
+  }, [location.state]);
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
@@ -42,17 +72,17 @@ const ProjectEditor = () => {
       setInputValue('');
       setIsThinking(true);
 
-      // Simulate AI response
       setTimeout(() => {
         setIsThinking(false);
+        setShowPreview(true);
         const aiResponse: Message = {
           id: Date.now() + 1,
           type: 'assistant',
-          content: "I'll help you build that. Let me set up the components and structure for your request...",
+          content: "Done! I've updated the preview with your changes. Check out the landing page on the right panel.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages(prev => [...prev, aiResponse]);
-      }, 3000);
+      }, 2000);
     }
   };
 
@@ -108,9 +138,9 @@ const ProjectEditor = () => {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
         {/* Left Panel - Chat */}
-        <div className="w-[420px] border-r border-border flex flex-col bg-card">
+        <div className="w-[420px] flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
           {/* Chat Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
@@ -187,44 +217,81 @@ const ProjectEditor = () => {
         </div>
 
         {/* Right Panel - Preview */}
-        <div className="flex-1 bg-muted/30 flex flex-col">
-          {/* Preview Header */}
-          <div className="h-10 border-b border-border flex items-center justify-center bg-card/50">
+        <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+          {/* Browser Chrome Header */}
+          <div className="h-10 border-b border-border flex items-center px-4 bg-muted/30">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
+              <div className="w-3 h-3 rounded-full bg-red-400 hover:bg-red-500 cursor-pointer transition-colors" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400 hover:bg-yellow-500 cursor-pointer transition-colors" />
+              <div className="w-3 h-3 rounded-full bg-green-400 hover:bg-green-500 cursor-pointer transition-colors" />
+            </div>
+            <div className="flex-1 flex justify-center">
+              <div className="px-4 py-1 bg-background rounded-md text-xs text-muted-foreground border border-border">
+                localhost:5173{previewRoute}
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setPreviewRoute('/')}
+                className="w-7 h-7 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+              </button>
+              <button className="w-7 h-7 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                <Expand className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
 
           {/* Preview Content */}
-          <div className="flex-1 flex items-center justify-center p-8">
+          <div className="flex-1 overflow-hidden bg-background">
             {isLoading ? (
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="text-sm">Getting ready...</span>
-              </div>
-            ) : messages.length === 0 ? (
-              <div className="text-center max-w-md">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                  <img src={logo} alt="runtime42" className="w-12 h-12" />
+              <div className="h-full flex items-center justify-center">
+                <div className="flex items-center gap-3 text-muted-foreground">
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span className="text-sm">Getting ready...</span>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
-                <p className="text-muted-foreground text-sm">
-                  Describe features, get full apps. Data, hosting, auth, AI included.
-                </p>
+              </div>
+            ) : showPreview || projectId ? (
+              <div className="h-full overflow-auto">
+                <MemoryRouter initialEntries={[previewRoute]}>
+                  <DemoApp />
+                </MemoryRouter>
               </div>
             ) : (
-              <div className="w-full h-full bg-background rounded-xl border border-border shadow-lg overflow-hidden">
-                <div className="h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
-                    <p className="text-sm text-muted-foreground">Building your app...</p>
+              <div className="h-full flex items-center justify-center">
+                <div className="text-center max-w-md">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                    <img src={logo} alt="runtime42" className="w-12 h-12" />
                   </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">runtime42 Cloud</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Describe features, get full apps. Data, hosting, auth, AI included.
+                  </p>
                 </div>
               </div>
             )}
           </div>
+
+          {/* Route Navigation */}
+          {(showPreview || projectId) && !isLoading && (
+            <div className="h-10 border-t border-border flex items-center gap-2 px-4 bg-muted/30">
+              <span className="text-xs text-muted-foreground mr-2">Routes:</span>
+              {['/', '/pricing', '/about'].map((route) => (
+                <button
+                  key={route}
+                  onClick={() => setPreviewRoute(route)}
+                  className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+                    previewRoute === route
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {route}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
