@@ -83,16 +83,16 @@ const HeroSection = () => {
             {/* Input area */}
             <div className="px-5 py-4">
               <div className="flex items-start gap-3">
-                <div className="flex-1 relative">
-                  <div className="flex items-center gap-1">
-                    <span className="text-primary text-lg font-bold">|</span>
+              <div className="flex-1 relative">
+                  <div className="flex items-center gap-0">
+                    <span className="text-primary text-lg font-bold animate-pulse">|</span>
                     <input
                       type="text"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={handleKeyDown}
                       placeholder="Ask runtime42 to build a SaaS dashboard with auth, APIs, and a scalable backend..."
-                      className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 outline-none w-full"
+                      className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 outline-none w-full caret-primary"
                     />
                   </div>
                 </div>
