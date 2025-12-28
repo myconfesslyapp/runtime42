@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
-  Globe, Cloud, Code, BarChart3, Lightbulb, Share2, Loader2, RefreshCw, Expand
+  Globe, Code, BarChart3, Lightbulb, Share2, Loader2, 
+  History, Smartphone, Tablet, Monitor, RefreshCcw
 } from 'lucide-react';
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
@@ -23,7 +24,7 @@ const ProjectEditor = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [projectName] = useState(projectId ? 'Demo Project' : 'New Project');
-  const [previewRoute, setPreviewRoute] = useState('/');
+  const previewRoute = '/';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -95,37 +96,63 @@ const ProjectEditor = () => {
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
       {/* Top Header */}
-      <header className="h-14 border-b border-border flex items-center justify-between px-4 bg-card flex-shrink-0">
+      <header className="h-12 border-b border-border flex items-center justify-between px-4 bg-card flex-shrink-0">
+        {/* Left - Logo and Project Name */}
         <div className="flex items-center gap-3">
-          <img src={logo} alt="runtime42" className="w-7 h-7 rounded-lg" />
+          <img src={logo} alt="runtime42" className="w-6 h-6 rounded-lg" />
           <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1 rounded-lg transition-colors">
             <span className="font-medium text-foreground text-sm">{projectName}</span>
-            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
           </div>
         </div>
 
-        {/* Center Tabs */}
-        <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-background text-foreground text-sm font-medium shadow-sm">
-            <Globe className="w-4 h-4" />
-            Preview
+        {/* Center - History, Devices, Tabs */}
+        <div className="flex items-center gap-2">
+          {/* History */}
+          <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            <History className="w-4 h-4" />
           </button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
-            <Cloud className="w-4 h-4" />
-          </button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
-            <Code className="w-4 h-4" />
-          </button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
-            <BarChart3 className="w-4 h-4" />
-          </button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
-            <Plus className="w-4 h-4" />
-          </button>
+          
+          {/* Device Icons */}
+          <div className="flex items-center gap-0.5">
+            <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+              <Smartphone className="w-4 h-4" />
+            </button>
+            <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+              <Tablet className="w-4 h-4" />
+            </button>
+            <button className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground">
+              <Monitor className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Main Tabs */}
+          <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-0.5 ml-2">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-background text-foreground text-sm font-medium shadow-sm">
+              <Globe className="w-4 h-4" />
+              Preview
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
+              <Code className="w-4 h-4" />
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
+              <BarChart3 className="w-4 h-4" />
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-2">
+        {/* Right - URL Bar, Share, Publish */}
+        <div className="flex items-center gap-3">
+          {/* URL Input */}
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-lg border border-border/50">
+            <span className="text-xs text-muted-foreground">🔒</span>
+            <span className="text-xs text-muted-foreground">/editor/{projectId || '1'}</span>
+            <RefreshCcw className="w-3 h-3 text-muted-foreground ml-2" />
+          </div>
+          
           <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted/50 rounded-lg transition-colors">
             <Share2 className="w-4 h-4" />
             Share
@@ -217,32 +244,7 @@ const ProjectEditor = () => {
 
         {/* Right Panel - Preview */}
         <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
-          {/* Browser Chrome Header */}
-          <div className="h-10 border-b border-border flex items-center px-4 bg-muted/30">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-400 hover:bg-red-500 cursor-pointer transition-colors" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400 hover:bg-yellow-500 cursor-pointer transition-colors" />
-              <div className="w-3 h-3 rounded-full bg-green-400 hover:bg-green-500 cursor-pointer transition-colors" />
-            </div>
-            <div className="flex-1 flex justify-center">
-              <div className="px-4 py-1 bg-background rounded-md text-xs text-muted-foreground border border-border">
-                localhost:5173{previewRoute}
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setPreviewRoute('/')}
-                className="w-7 h-7 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
-              <button className="w-7 h-7 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-                <Expand className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Preview Content */}
+          {/* Preview Content - Clean, no browser chrome */}
           <div className="flex-1 overflow-hidden bg-background">
             {isLoading ? (
               <div className="h-full flex items-center justify-center">
@@ -270,25 +272,6 @@ const ProjectEditor = () => {
             )}
           </div>
 
-          {/* Route Navigation */}
-          {(showPreview || projectId) && !isLoading && (
-            <div className="h-10 border-t border-border flex items-center gap-2 px-4 bg-muted/30">
-              <span className="text-xs text-muted-foreground mr-2">Routes:</span>
-              {['/', '/pricing', '/about'].map((route) => (
-                <button
-                  key={route}
-                  onClick={() => setPreviewRoute(route)}
-                  className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
-                    previewRoute === route
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {route}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </div>
