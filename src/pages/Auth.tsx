@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 
 type AuthMode = 'signup' | 'signin' | 'forgot-password';
@@ -46,16 +46,18 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
 };
 
 const Auth = () => {
-  const [mode, setMode] = useState<AuthMode>('signup');
+  const navigate = useNavigate();
+  const [mode, setMode] = useState<AuthMode>('signin');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '',
-    password: '',
+    email: 'venkatagovindneelapu@gmail.com',
+    password: 'Neelapu@123',
     agreeToEmails: false,
     acceptTerms: false,
   });
   const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -63,15 +65,23 @@ const Auth = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+    setError('');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (mode === 'forgot-password') {
-      console.log('Password reset requested for:', formData.email);
       setResetEmailSent(true);
+    } else if (mode === 'signin') {
+      // Default login check
+      if (formData.email === 'venkatagovindneelapu@gmail.com' && formData.password === 'Neelapu@123') {
+        navigate('/dashboard');
+      } else {
+        setError('Invalid email or password');
+      }
     } else {
-      console.log('Form submitted:', formData);
+      // Signup - just redirect for demo
+      navigate('/dashboard');
     }
   };
 
@@ -264,6 +274,11 @@ const Auth = () => {
               </label>
             </div>
           </>
+        )}
+
+        {/* Error message */}
+        {error && (
+          <p className="text-sm text-red-500 text-center">{error}</p>
         )}
 
         {/* Submit Button */}
