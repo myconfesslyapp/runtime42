@@ -158,51 +158,53 @@ const ProjectEditor = () => {
       />
 
       {/* Top Header */}
-      <header className="h-12 flex items-center justify-between px-4 bg-card flex-shrink-0">
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="runtime42" className="w-6 h-6 rounded-lg" />
-          <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1 rounded-lg transition-colors">
-            <span className="font-medium text-foreground text-sm">{projectName}</span>
-            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+      <header className="h-14 flex items-center px-4 bg-card flex-shrink-0">
+        {/* Left - Logo & Project Name */}
+        <div className="flex items-center gap-3 min-w-[200px]">
+          <img src={logo} alt="runtime42" className="w-7 h-7 rounded-lg" />
+          <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1.5 rounded-lg transition-colors">
+            <span className="font-semibold text-foreground">{projectName}</span>
+            <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-            <History className="w-4 h-4" />
+        {/* Center - Device & Tab Controls */}
+        <div className="flex-1 flex items-center justify-center gap-3">
+          <button className="w-9 h-9 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            <History className="w-4.5 h-4.5" />
           </button>
           
-          <div className="flex items-center gap-0.5">
+          <div className="flex items-center gap-1">
             <button 
               onClick={() => setActiveDevice('mobile')}
-              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
                 activeDevice === 'mobile' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Smartphone className="w-4 h-4" />
+              <Smartphone className="w-4.5 h-4.5" />
             </button>
             <button 
               onClick={() => setActiveDevice('tablet')}
-              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
                 activeDevice === 'tablet' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Tablet className="w-4 h-4" />
+              <Tablet className="w-4.5 h-4.5" />
             </button>
             <button 
               onClick={() => setActiveDevice('desktop')}
-              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
                 activeDevice === 'desktop' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Monitor className="w-4 h-4" />
+              <Monitor className="w-4.5 h-4.5" />
             </button>
           </div>
 
-          <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-0.5 ml-2">
+          <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-1">
             <button 
               onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
                 activeTab === 'preview' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -211,7 +213,7 @@ const ProjectEditor = () => {
             </button>
             <button 
               onClick={() => setActiveTab('code')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${
                 activeTab === 'code' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -219,33 +221,34 @@ const ProjectEditor = () => {
             </button>
             <button 
               onClick={() => setActiveTab('analytics')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${
                 activeTab === 'analytics' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               <BarChart3 className="w-4 h-4" />
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground text-sm hover:text-foreground transition-colors">
+            <button className="flex items-center gap-2 px-3 py-2 rounded-md text-muted-foreground hover:text-foreground transition-colors">
               <Plus className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Right - Search, Address Bar, Share, Publish */}
+        <div className="flex items-center gap-3 min-w-[200px] justify-end">
           <button
             onClick={() => setIsFileSearchOpen(true)}
-            className="flex items-center gap-2 px-2 py-1 text-xs text-muted-foreground hover:text-foreground bg-muted/50 rounded border border-border/50 hover:border-border transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground bg-muted/50 rounded-lg border border-border/50 hover:border-border transition-colors"
           >
             <span>Search</span>
-            <kbd className="px-1 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
+            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
           </button>
           
           <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-lg border border-border/50">
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
-                <Lock className="w-3 h-3 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">{previewRoute}</span>
-                <ChevronDown className="w-3 h-3 text-muted-foreground" />
+                <Lock className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">{previewRoute}</span>
+                <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="min-w-[200px]">
                 {availableRoutes.map((route) => (
@@ -264,18 +267,18 @@ const ProjectEditor = () => {
               onClick={handleRefreshPreview}
               className="p-1 hover:bg-muted rounded transition-colors ml-1"
             >
-              <RefreshCcw className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+              <RefreshCcw className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
             </button>
             <button className="p-1 hover:bg-muted rounded transition-colors">
-              <ExternalLink className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
             </button>
           </div>
           
-          <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+          <button className="flex items-center gap-2 px-3 py-2 font-medium text-foreground hover:bg-muted/50 rounded-lg transition-colors">
             <Share2 className="w-4 h-4" />
             Share
           </button>
-          <button className="px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors">
+          <button className="px-5 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors">
             Publish
           </button>
         </div>
