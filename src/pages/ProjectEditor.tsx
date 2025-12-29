@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
   Globe, Code, BarChart3, Lightbulb, Share2,
-  History, Smartphone, Tablet, Monitor, RefreshCcw, Lock, ExternalLink
+  History, Smartphone, Tablet, Monitor, RefreshCcw, Lock, ExternalLink, Check
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -48,6 +48,23 @@ const ProjectEditor = () => {
   const handleRefreshPreview = () => {
     setPreviewKey(prev => prev + 1);
   };
+
+  const cycleDevice = () => {
+    const deviceOrder: DeviceType[] = ['desktop', 'tablet', 'mobile'];
+    const currentIndex = deviceOrder.indexOf(activeDevice);
+    const nextIndex = (currentIndex + 1) % deviceOrder.length;
+    setActiveDevice(deviceOrder[nextIndex]);
+  };
+
+  const getDeviceIcon = () => {
+    switch (activeDevice) {
+      case 'mobile': return Smartphone;
+      case 'tablet': return Tablet;
+      default: return Monitor;
+    }
+  };
+
+  const DeviceIcon = getDeviceIcon();
   const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
   const [activeTab, setActiveTab] = useState<TabType>('preview');
   const [previewKey, setPreviewKey] = useState(0);
@@ -243,34 +260,43 @@ const ProjectEditor = () => {
             <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
           </button>
           
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-lg border border-border/50">
+          <div className="flex items-center gap-1 px-2 py-1 bg-muted/50 rounded-lg border border-border/50">
+            <button 
+              onClick={cycleDevice}
+              className="p-1.5 hover:bg-muted rounded transition-colors"
+              title={`Switch device (${activeDevice})`}
+            >
+              <DeviceIcon className="w-4 h-4 text-muted-foreground hover:text-foreground" />
+            </button>
+            
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
-                <Lock className="w-3.5 h-3.5 text-muted-foreground" />
+              <DropdownMenuTrigger className="flex items-center gap-1 px-2 py-1 hover:bg-muted rounded transition-colors outline-none">
                 <span className="text-sm text-muted-foreground">{previewRoute}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="min-w-[200px]">
+              <DropdownMenuContent align="start" className="min-w-[200px] bg-popover border border-border z-50">
                 {availableRoutes.map((route) => (
                   <DropdownMenuItem 
                     key={route.path}
                     onClick={() => setPreviewRoute(route.path)}
-                    className="flex items-center justify-between"
+                    className="flex items-center justify-between cursor-pointer"
                   >
-                    <span>{route.label}</span>
-                    <span className="text-xs text-muted-foreground">{route.path}</span>
+                    <span>{route.path}</span>
+                    {previewRoute === route.path && (
+                      <Check className="w-4 h-4 text-foreground" />
+                    )}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            
             <button 
               onClick={handleRefreshPreview}
-              className="p-1 hover:bg-muted rounded transition-colors ml-1"
+              className="p-1.5 hover:bg-muted rounded transition-colors"
             >
-              <RefreshCcw className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+              <RefreshCcw className="w-4 h-4 text-muted-foreground hover:text-foreground" />
             </button>
-            <button className="p-1 hover:bg-muted rounded transition-colors">
-              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+            <button className="p-1.5 hover:bg-muted rounded transition-colors">
+              <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />
             </button>
           </div>
           
