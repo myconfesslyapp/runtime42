@@ -192,34 +192,6 @@ const ProjectEditor = () => {
 
         {/* Preview area controls - aligned with preview panel start */}
         <div className="flex-1 flex items-center gap-3 pl-3">
-          {/* Device icons */}
-          <div className="flex items-center gap-1">
-            <button 
-              onClick={() => setActiveDevice('mobile')}
-              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
-                activeDevice === 'mobile' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <Smartphone className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={() => setActiveDevice('tablet')}
-              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
-                activeDevice === 'tablet' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <Tablet className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={() => setActiveDevice('desktop')}
-              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
-                activeDevice === 'desktop' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <Monitor className="w-5 h-5" />
-            </button>
-          </div>
-
           {/* Tabs */}
           <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-1">
             <button 
