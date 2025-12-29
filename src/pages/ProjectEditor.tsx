@@ -284,7 +284,7 @@ const ProjectEditor = () => {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
         {/* Left Panel - Chat */}
-        <div className="w-[420px] flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+        <div className="w-[420px] flex flex-col bg-card rounded-2xl overflow-hidden">
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground text-sm py-8">
@@ -359,7 +359,7 @@ const ProjectEditor = () => {
         </div>
 
         {/* Right Panel - Preview/Code/Analytics */}
-        <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
+        <div className="flex-1 flex flex-col bg-card rounded-2xl overflow-hidden">
           <div className="flex-1 overflow-hidden bg-background">
             {activeTab === 'preview' && (
               <div className="h-full flex flex-col">
