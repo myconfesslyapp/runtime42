@@ -158,7 +158,7 @@ const ProjectEditor = () => {
       />
 
       {/* Top Header */}
-      <header className="h-12 border-b border-border flex items-center justify-between px-4 bg-card flex-shrink-0">
+      <header className="h-12 flex items-center justify-between px-4 bg-card flex-shrink-0">
         <div className="flex items-center gap-3">
           <img src={logo} alt="runtime42" className="w-6 h-6 rounded-lg" />
           <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1 rounded-lg transition-colors">
