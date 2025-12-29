@@ -366,7 +366,7 @@ const ProjectEditor = () => {
                 {isLoading || isThinking ? (
                   <BuildingScreen message={isLoading ? 'Getting ready..' : 'Building your idea..'} />
                 ) : showPreview || projectId ? (
-                  <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
+                  <div className={`h-full ${activeDevice !== 'desktop' ? 'flex items-center justify-center bg-muted/30 p-4' : ''} overflow-auto`}>
                     <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
                       <div className="h-full overflow-auto">
                         <DemoApp key={previewKey} currentRoute={previewRoute} />
