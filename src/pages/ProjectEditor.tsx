@@ -336,9 +336,14 @@ const ProjectEditor = () => {
             )}
           </div>
 
-          <div className="p-4 border-t border-border">
-            <div className="bg-background border border-border rounded-xl overflow-hidden">
-              <div className="p-3">
+          <div className="p-4">
+            <div 
+              className="relative bg-muted/80 border border-border/50 rounded-2xl overflow-hidden"
+              style={{
+                boxShadow: '0 0 40px hsl(25 95% 55% / 0.15), 0 0 80px hsl(25 95% 55% / 0.08)'
+              }}
+            >
+              <div className="p-4 pb-2">
                 <input
                   type="text"
                   value={inputValue}
@@ -348,23 +353,23 @@ const ProjectEditor = () => {
                   className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
                 />
               </div>
-              <div className="flex items-center justify-between px-3 py-2 border-t border-border/50">
+              <div className="flex items-center justify-between px-3 py-2">
                 <div className="flex items-center gap-1">
-                  <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                  <button className="w-8 h-8 rounded-full hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="h-8 px-3 rounded-lg hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  <button className="h-8 px-3 rounded-full hover:bg-muted flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
                     <MessageSquare className="w-4 h-4" />
                     Chat
                   </button>
-                  <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+                  <button className="w-8 h-8 rounded-full hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
                     <AudioLines className="w-4 h-4" />
                   </button>
                   <button 
                     onClick={handleSubmit}
-                    className="w-8 h-8 rounded-lg bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
+                    className="w-8 h-8 rounded-full bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
                   >
                     <ArrowUp className="w-4 h-4" />
                   </button>
