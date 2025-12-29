@@ -191,8 +191,8 @@ const ProjectEditor = () => {
         </div>
 
         {/* Preview area controls - aligned with preview panel start */}
-        <div className="flex-1 flex items-center gap-3 pl-3">
-          {/* Tabs */}
+        <div className="flex-1 flex items-center pl-3">
+          {/* Tabs - left side */}
           <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-1">
             <button 
               onClick={() => setActiveTab('preview')}
@@ -223,10 +223,44 @@ const ProjectEditor = () => {
               <Plus className="w-4 h-4" />
             </button>
           </div>
-        </div>
-
-        {/* Right - Search, Address Bar, Share, Publish */}
-        <div className="flex items-center gap-3 min-w-[200px] justify-end">
+          
+          {/* Address Bar - centered in preview area */}
+          <div className="flex-1 flex justify-center">
+            <div className="flex items-center bg-muted/50 rounded-lg border border-border/50">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 px-3 py-1.5 hover:bg-muted/50 rounded-l-lg transition-colors outline-none">
+                  <DeviceIcon className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">{previewRoute}</span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center" className="min-w-[200px] bg-popover border border-border z-50">
+                  {availableRoutes.map((route) => (
+                    <DropdownMenuItem 
+                      key={route.path}
+                      onClick={() => setPreviewRoute(route.path)}
+                      className="flex items-center justify-between cursor-pointer"
+                    >
+                      <span>{route.path}</span>
+                      {previewRoute === route.path && (
+                        <Check className="w-4 h-4 text-foreground" />
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              
+              <button 
+                onClick={handleRefreshPreview}
+                className="p-2 hover:bg-muted/50 transition-colors border-l border-border/50"
+              >
+                <RefreshCcw className="w-4 h-4 text-muted-foreground hover:text-foreground" />
+              </button>
+              <button className="p-2 hover:bg-muted/50 rounded-r-lg transition-colors">
+                <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Right side - Search */}
           <button
             onClick={() => setIsFileSearchOpen(true)}
             className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground bg-muted/50 rounded-lg border border-border/50 hover:border-border transition-colors"
@@ -234,40 +268,10 @@ const ProjectEditor = () => {
             <span>Search</span>
             <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
           </button>
-          
-          <div className="flex items-center bg-muted/50 rounded-lg border border-border/50">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-2 px-3 py-1.5 hover:bg-muted/50 rounded-l-lg transition-colors outline-none">
-                <DeviceIcon className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">{previewRoute}</span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="min-w-[200px] bg-popover border border-border z-50">
-                {availableRoutes.map((route) => (
-                  <DropdownMenuItem 
-                    key={route.path}
-                    onClick={() => setPreviewRoute(route.path)}
-                    className="flex items-center justify-between cursor-pointer"
-                  >
-                    <span>{route.path}</span>
-                    {previewRoute === route.path && (
-                      <Check className="w-4 h-4 text-foreground" />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            
-            <button 
-              onClick={handleRefreshPreview}
-              className="p-2 hover:bg-muted/50 transition-colors border-l border-border/50"
-            >
-              <RefreshCcw className="w-4 h-4 text-muted-foreground hover:text-foreground" />
-            </button>
-            <button className="p-2 hover:bg-muted/50 rounded-r-lg transition-colors">
-              <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />
-            </button>
-          </div>
-          
+        </div>
+
+        {/* Right - Share, Publish */}
+        <div className="flex items-center gap-3">
           <button className="flex items-center gap-2 px-3 py-2 font-medium text-foreground hover:bg-muted/50 rounded-lg transition-colors">
             <Share2 className="w-4 h-4" />
             Share
