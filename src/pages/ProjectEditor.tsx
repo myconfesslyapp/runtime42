@@ -38,12 +38,22 @@ const ProjectEditor = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [projectName] = useState(projectId ? 'Demo Project' : 'New Project');
   const [previewRoute, setPreviewRoute] = useState('/');
+  const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
+  const [activeTab, setActiveTab] = useState<TabType>('preview');
+  const [previewKey, setPreviewKey] = useState(0);
+  const [isFileSearchOpen, setIsFileSearchOpen] = useState(false);
   
   const availableRoutes = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/pricing', label: 'Pricing' },
   ];
+
+  const deviceSizes = {
+    mobile: 'w-[375px]',
+    tablet: 'w-[768px]',
+    desktop: 'w-full'
+  };
 
   const handleRefreshPreview = () => {
     setPreviewKey(prev => prev + 1);
@@ -65,16 +75,6 @@ const ProjectEditor = () => {
   };
 
   const DeviceIcon = getDeviceIcon();
-  const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
-  const [activeTab, setActiveTab] = useState<TabType>('preview');
-  const [previewKey, setPreviewKey] = useState(0);
-  const [isFileSearchOpen, setIsFileSearchOpen] = useState(false);
-
-  const deviceSizes = {
-    mobile: 'w-[375px]',
-    tablet: 'w-[768px]',
-    desktop: 'w-full'
-  };
 
   const handleCodeChange = useCallback((filePath: string, newCode: string) => {
     setPreviewKey(prev => prev + 1);
