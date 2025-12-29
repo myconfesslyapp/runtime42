@@ -241,9 +241,34 @@ const ProjectEditor = () => {
           </button>
           
           <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-lg border border-border/50">
-            <span className="text-xs text-muted-foreground">🔒</span>
-            <span className="text-xs text-muted-foreground">/editor/{projectId || '1'}</span>
-            <RefreshCcw className="w-3 h-3 text-muted-foreground ml-2" />
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
+                <Lock className="w-3 h-3 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">{previewRoute}</span>
+                <ChevronDown className="w-3 h-3 text-muted-foreground" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="min-w-[200px]">
+                {availableRoutes.map((route) => (
+                  <DropdownMenuItem 
+                    key={route.path}
+                    onClick={() => setPreviewRoute(route.path)}
+                    className="flex items-center justify-between"
+                  >
+                    <span>{route.label}</span>
+                    <span className="text-xs text-muted-foreground">{route.path}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <button 
+              onClick={handleRefreshPreview}
+              className="p-1 hover:bg-muted rounded transition-colors ml-1"
+            >
+              <RefreshCcw className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+            </button>
+            <button className="p-1 hover:bg-muted rounded transition-colors">
+              <ExternalLink className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+            </button>
           </div>
           
           <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted/50 rounded-lg transition-colors">
@@ -341,48 +366,10 @@ const ProjectEditor = () => {
                 {isLoading || isThinking ? (
                   <BuildingScreen message={isLoading ? 'Getting ready..' : 'Building your idea..'} />
                 ) : showPreview || projectId ? (
-                  <div className="h-full flex flex-col bg-muted/30">
-                    {/* Browser Address Bar */}
-                    <div className="flex items-center justify-center py-2 px-4 bg-muted/50 border-b border-border">
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border min-w-[280px]">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
-                            <Lock className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-sm text-muted-foreground">{previewRoute}</span>
-                            <ChevronDown className="w-3 h-3 text-muted-foreground" />
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="start" className="min-w-[200px]">
-                            {availableRoutes.map((route) => (
-                              <DropdownMenuItem 
-                                key={route.path}
-                                onClick={() => setPreviewRoute(route.path)}
-                                className="flex items-center justify-between"
-                              >
-                                <span>{route.label}</span>
-                                <span className="text-xs text-muted-foreground">{route.path}</span>
-                              </DropdownMenuItem>
-                            ))}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                        <div className="flex-1" />
-                        <button 
-                          onClick={handleRefreshPreview}
-                          className="p-1 hover:bg-muted rounded transition-colors"
-                        >
-                          <RefreshCcw className="w-3 h-3 text-muted-foreground hover:text-foreground" />
-                        </button>
-                        <button className="p-1 hover:bg-muted rounded transition-colors">
-                          <ExternalLink className="w-3 h-3 text-muted-foreground hover:text-foreground" />
-                        </button>
-                      </div>
-                    </div>
-                    
-                    {/* Preview Content */}
-                    <div className="flex-1 flex items-center justify-center p-4 overflow-auto">
-                      <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
-                        <div className="h-full overflow-auto">
-                          <DemoApp key={previewKey} currentRoute={previewRoute} />
-                        </div>
+                  <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
+                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                      <div className="h-full overflow-auto">
+                        <DemoApp key={previewKey} currentRoute={previewRoute} />
                       </div>
                     </div>
                   </div>
