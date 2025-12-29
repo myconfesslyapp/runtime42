@@ -337,12 +337,7 @@ const ProjectEditor = () => {
           </div>
 
           <div className="p-4">
-            <div 
-              className="relative bg-muted/80 border border-border/50 rounded-2xl overflow-hidden"
-              style={{
-                boxShadow: '0 0 40px hsl(25 95% 55% / 0.15), 0 0 80px hsl(25 95% 55% / 0.08)'
-              }}
-            >
+            <div className="relative bg-muted/80 border border-border/50 rounded-2xl overflow-hidden">
               <div className="p-4 pb-2">
                 <input
                   type="text"
