@@ -32,7 +32,10 @@
     --input: 0 0% 90%;
     --ring: 25 95% 55%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
+    
+    --gradient-orange: linear-gradient(135deg, hsl(20 90% 45%) 0%, hsl(30 95% 55%) 100%);
+    --gradient-orange-hover: linear-gradient(135deg, hsl(20 90% 40%) 0%, hsl(30 95% 50%) 100%);
   }
 
   .dark {
@@ -63,6 +66,9 @@
     --border: 0 0% 18%;
     --input: 0 0% 18%;
     --ring: 25 95% 55%;
+    
+    --gradient-orange: linear-gradient(135deg, hsl(20 90% 45%) 0%, hsl(30 95% 55%) 100%);
+    --gradient-orange-hover: linear-gradient(135deg, hsl(20 90% 40%) 0%, hsl(30 95% 50%) 100%);
   }
 
   .grey {
@@ -97,6 +103,9 @@
     --sidebar-background: 240 8% 12%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-border: 240 6% 20%;
+    
+    --gradient-orange: linear-gradient(135deg, hsl(20 90% 45%) 0%, hsl(30 95% 55%) 100%);
+    --gradient-orange-hover: linear-gradient(135deg, hsl(20 90% 40%) 0%, hsl(30 95% 50%) 100%);
   }
 }
 
