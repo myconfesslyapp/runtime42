@@ -2,8 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
   Globe, Code, BarChart3, Lightbulb, Share2,
-  History, Smartphone, Tablet, Monitor, RefreshCcw
+  History, Smartphone, Tablet, Monitor, RefreshCcw, Lock, ExternalLink
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
 import DemoApp from '@/demo-project/DemoApp';
@@ -31,7 +37,17 @@ const ProjectEditor = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [projectName] = useState(projectId ? 'Demo Project' : 'New Project');
-  const previewRoute = '/';
+  const [previewRoute, setPreviewRoute] = useState('/');
+  
+  const availableRoutes = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/pricing', label: 'Pricing' },
+  ];
+
+  const handleRefreshPreview = () => {
+    setPreviewKey(prev => prev + 1);
+  };
   const [activeDevice, setActiveDevice] = useState<DeviceType>('desktop');
   const [activeTab, setActiveTab] = useState<TabType>('preview');
   const [previewKey, setPreviewKey] = useState(0);
@@ -321,14 +337,52 @@ const ProjectEditor = () => {
         <div className="flex-1 flex flex-col bg-card rounded-2xl border border-border overflow-hidden">
           <div className="flex-1 overflow-hidden bg-background">
             {activeTab === 'preview' && (
-              <>
+              <div className="h-full flex flex-col">
                 {isLoading || isThinking ? (
                   <BuildingScreen message={isLoading ? 'Getting ready..' : 'Building your idea..'} />
                 ) : showPreview || projectId ? (
-                  <div className="h-full flex items-center justify-center bg-muted/30 p-4 overflow-auto">
-                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
-                      <div className="h-full overflow-auto">
-                        <DemoApp key={previewKey} currentRoute={previewRoute} />
+                  <div className="h-full flex flex-col bg-muted/30">
+                    {/* Browser Address Bar */}
+                    <div className="flex items-center justify-center py-2 px-4 bg-muted/50 border-b border-border">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border min-w-[280px]">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
+                            <Lock className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-sm text-muted-foreground">{previewRoute}</span>
+                            <ChevronDown className="w-3 h-3 text-muted-foreground" />
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="min-w-[200px]">
+                            {availableRoutes.map((route) => (
+                              <DropdownMenuItem 
+                                key={route.path}
+                                onClick={() => setPreviewRoute(route.path)}
+                                className="flex items-center justify-between"
+                              >
+                                <span>{route.label}</span>
+                                <span className="text-xs text-muted-foreground">{route.path}</span>
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                        <div className="flex-1" />
+                        <button 
+                          onClick={handleRefreshPreview}
+                          className="p-1 hover:bg-muted rounded transition-colors"
+                        >
+                          <RefreshCcw className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+                        </button>
+                        <button className="p-1 hover:bg-muted rounded transition-colors">
+                          <ExternalLink className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* Preview Content */}
+                    <div className="flex-1 flex items-center justify-center p-4 overflow-auto">
+                      <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                        <div className="h-full overflow-auto">
+                          <DemoApp key={previewKey} currentRoute={previewRoute} />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -345,7 +399,7 @@ const ProjectEditor = () => {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             )}
 
             {activeTab === 'code' && (
