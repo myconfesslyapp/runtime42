@@ -235,17 +235,10 @@ const ProjectEditor = () => {
             <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
           </button>
           
-          <div className="flex items-center gap-1 px-2 py-1 bg-muted/50 rounded-lg border border-border/50">
-            <button 
-              onClick={cycleDevice}
-              className="p-1.5 hover:bg-muted rounded transition-colors"
-              title={`Switch device (${activeDevice})`}
-            >
-              <DeviceIcon className="w-4 h-4 text-muted-foreground hover:text-foreground" />
-            </button>
-            
+          <div className="flex items-center bg-muted/50 rounded-lg border border-border/50">
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-2 py-1 hover:bg-muted rounded transition-colors outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-2 px-3 py-1.5 hover:bg-muted/50 rounded-l-lg transition-colors outline-none">
+                <DeviceIcon className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">{previewRoute}</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="min-w-[200px] bg-popover border border-border z-50">
@@ -266,11 +259,11 @@ const ProjectEditor = () => {
             
             <button 
               onClick={handleRefreshPreview}
-              className="p-1.5 hover:bg-muted rounded transition-colors"
+              className="p-2 hover:bg-muted/50 transition-colors border-l border-border/50"
             >
               <RefreshCcw className="w-4 h-4 text-muted-foreground hover:text-foreground" />
             </button>
-            <button className="p-1.5 hover:bg-muted rounded transition-colors">
+            <button className="p-2 hover:bg-muted/50 rounded-r-lg transition-colors">
               <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />
             </button>
           </div>
