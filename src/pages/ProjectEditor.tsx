@@ -2,13 +2,16 @@ import { useState, useEffect, useCallback } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
   Globe, Code, BarChart3, Lightbulb, Share2,
-  History, Smartphone, Tablet, Monitor, RefreshCcw, Lock, ExternalLink, Check
+  History, Smartphone, Tablet, Monitor, RefreshCcw, Lock, ExternalLink, Check,
+  ArrowLeft, Settings, Copy, PenLine, Star, Gift, Palette, HelpCircle, ChevronRight
 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
 import { useParams, useLocation } from 'react-router-dom';
 import logo from '@/assets/runtime42-logo.png';
@@ -179,10 +182,94 @@ const ProjectEditor = () => {
         {/* Left - Logo & Project Name */}
         <div className="flex items-center gap-3 w-[30%]">
           <img src={logo} alt="runtime42" className="w-7 h-7 rounded-lg" />
-          <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1.5 rounded-lg transition-colors">
-            <span className="font-semibold text-foreground">{projectName}</span>
-            <ChevronDown className="w-4 h-4 text-muted-foreground" />
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1.5 rounded-lg transition-colors outline-none">
+              <span className="font-semibold text-foreground">{projectName}</span>
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-64 bg-popover border border-border z-50 p-2">
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer py-2.5">
+                <ArrowLeft className="w-4 h-4" />
+                <span>Go to Dashboard</span>
+              </DropdownMenuItem>
+              
+              <DropdownMenuSeparator className="my-2" />
+              
+              <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-2 py-1">
+                runtime42 Workspace
+              </DropdownMenuLabel>
+              
+              <div className="px-2 py-2">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium">Credits</span>
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                    <span>185.5 left</span>
+                    <ChevronRight className="w-3 h-3" />
+                  </div>
+                </div>
+                <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
+                  <div className="h-full w-[60%] bg-primary rounded-full" />
+                </div>
+                <span className="text-xs text-muted-foreground mt-1 block">Using monthly credits</span>
+              </div>
+              
+              <DropdownMenuSeparator className="my-2" />
+              
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer py-2.5 text-primary">
+                <Gift className="w-4 h-4" />
+                <span>Get free credits</span>
+              </DropdownMenuItem>
+              
+              <DropdownMenuSeparator className="my-2" />
+              
+              <DropdownMenuItem className="flex items-center justify-between cursor-pointer py-2.5">
+                <div className="flex items-center gap-2">
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </div>
+                <kbd className="text-xs text-muted-foreground">Ctrl.</kbd>
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer py-2.5">
+                <Copy className="w-4 h-4" />
+                <span>Remix this project</span>
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer py-2.5">
+                <PenLine className="w-4 h-4" />
+                <span>Rename project</span>
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer py-2.5">
+                <Star className="w-4 h-4" />
+                <span>Star project</span>
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer py-2.5">
+                <Gift className="w-4 h-4" />
+                <span>Bonuses</span>
+                <span className="ml-1 px-1.5 py-0.5 text-[10px] bg-primary text-primary-foreground rounded-full font-medium">New</span>
+              </DropdownMenuItem>
+              
+              <DropdownMenuSeparator className="my-2" />
+              
+              <DropdownMenuItem className="flex items-center justify-between cursor-pointer py-2.5">
+                <div className="flex items-center gap-2">
+                  <Palette className="w-4 h-4" />
+                  <span>Appearance</span>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem className="flex items-center justify-between cursor-pointer py-2.5">
+                <div className="flex items-center gap-2">
+                  <HelpCircle className="w-4 h-4" />
+                  <span>Help</span>
+                </div>
+                <ExternalLink className="w-3 h-3 text-muted-foreground" />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div className="flex-1" />
           {/* History at end of chat panel */}
           <button className="w-9 h-9 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
