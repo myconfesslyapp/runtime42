@@ -193,10 +193,10 @@ const ProjectEditor = () => {
         {/* Preview area controls - aligned with preview panel start */}
         <div className="flex-1 flex items-center pl-3">
           {/* Tabs - left side */}
-          <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-1">
+          <div className="flex items-center gap-0.5 bg-muted/50 rounded-full p-1">
             <button 
               onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-colors ${
                 activeTab === 'preview' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -205,7 +205,7 @@ const ProjectEditor = () => {
             </button>
             <button 
               onClick={() => setActiveTab('code')}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-full font-medium transition-colors ${
                 activeTab === 'code' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -213,20 +213,20 @@ const ProjectEditor = () => {
             </button>
             <button 
               onClick={() => setActiveTab('analytics')}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-full font-medium transition-colors ${
                 activeTab === 'analytics' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               <BarChart3 className="w-4 h-4" />
             </button>
-            <button className="flex items-center gap-2 px-3 py-2 rounded-md text-muted-foreground hover:text-foreground transition-colors">
+            <button className="flex items-center gap-2 px-3 py-2 rounded-full text-muted-foreground hover:text-foreground transition-colors">
               <Plus className="w-4 h-4" />
             </button>
           </div>
           
           {/* Address Bar - centered in preview area */}
           <div className="flex-1 flex justify-center">
-            <div className="flex items-center bg-muted rounded-lg px-1">
+            <div className="flex items-center bg-muted rounded-full px-1">
               {/* Device toggle button */}
               <button 
                 onClick={cycleDevice}
@@ -275,7 +275,7 @@ const ProjectEditor = () => {
           {/* Right side - Search */}
           <button
             onClick={() => setIsFileSearchOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground bg-muted/50 rounded-lg border border-border/50 hover:border-border transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground bg-muted/50 rounded-full border border-border/50 hover:border-border transition-colors"
           >
             <span>Search</span>
             <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded">⌘P</kbd>
@@ -284,11 +284,14 @@ const ProjectEditor = () => {
 
         {/* Right - Share, Publish */}
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-3 py-2 font-medium text-foreground hover:bg-muted/50 rounded-lg transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 font-medium text-foreground hover:bg-muted/50 rounded-full transition-colors">
             <Share2 className="w-4 h-4" />
             Share
           </button>
-          <button className="px-5 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors">
+          <button 
+            className="px-6 py-2 text-white font-medium rounded-full transition-all hover:opacity-90"
+            style={{ background: 'var(--gradient-orange)' }}
+          >
             Publish
           </button>
         </div>
@@ -297,7 +300,7 @@ const ProjectEditor = () => {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden p-3 gap-3 bg-muted/30">
         {/* Left Panel - Chat */}
-        <div className="w-[420px] flex flex-col bg-card rounded-2xl overflow-hidden">
+        <div className="w-[420px] flex flex-col bg-card rounded-3xl overflow-hidden">
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground text-sm py-8">
@@ -372,15 +375,15 @@ const ProjectEditor = () => {
         </div>
 
         {/* Right Panel - Preview/Code/Analytics */}
-        <div className="flex-1 flex flex-col bg-card rounded-2xl overflow-hidden">
-          <div className="flex-1 overflow-hidden bg-background">
+        <div className="flex-1 flex flex-col bg-card rounded-3xl overflow-hidden">
+          <div className="flex-1 overflow-hidden bg-background rounded-3xl">
             {activeTab === 'preview' && (
               <div className="h-full flex flex-col">
                 {isLoading || isThinking ? (
                   <BuildingScreen message={isLoading ? 'Getting ready..' : 'Building your idea..'} />
                 ) : showPreview || projectId ? (
                   <div className={`h-full flex items-center justify-center ${activeDevice !== 'desktop' ? 'bg-muted/30 p-4' : ''} overflow-auto transition-all duration-500 ease-out`}>
-                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-500 ease-out ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-500 ease-out ${activeDevice !== 'desktop' ? 'border border-border rounded-3xl shadow-2xl bg-background overflow-hidden' : ''}`}>
                       <div className="h-full overflow-auto">
                         <DemoApp key={previewKey} currentRoute={previewRoute} />
                       </div>
