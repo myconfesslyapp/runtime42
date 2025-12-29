@@ -226,20 +226,19 @@ const ProjectEditor = () => {
           
           {/* Address Bar - centered in preview area */}
           <div className="flex-1 flex justify-center">
-            <div className="flex items-center bg-muted rounded-lg">
+            <div className="flex items-center bg-muted rounded-lg px-1">
               {/* Device toggle button */}
               <button 
                 onClick={cycleDevice}
-                className="flex items-center gap-1 px-3 py-2 hover:bg-muted-foreground/10 rounded-l-lg transition-colors"
+                className="flex items-center gap-2 px-3 py-2 hover:bg-muted-foreground/10 rounded-lg transition-colors"
                 title={`Current: ${activeDevice}. Click to switch.`}
               >
-                <DeviceIcon className="w-4 h-4 text-muted-foreground" />
-                <span className="text-muted-foreground/60">/</span>
+                <DeviceIcon className="w-4 h-4 text-muted-foreground transition-all duration-300" />
               </button>
               
               {/* Route dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center px-2 py-2 hover:bg-muted-foreground/10 transition-colors outline-none">
+                <DropdownMenuTrigger className="flex items-center gap-3 px-3 py-2 hover:bg-muted-foreground/10 rounded-lg transition-colors outline-none">
                   <span className="text-sm text-muted-foreground">{previewRoute}</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center" className="min-w-[200px] bg-popover border border-border z-50">
@@ -261,13 +260,13 @@ const ProjectEditor = () => {
               {/* Refresh button */}
               <button 
                 onClick={handleRefreshPreview}
-                className="p-2 hover:bg-muted-foreground/10 transition-colors"
+                className="p-2 hover:bg-muted-foreground/10 rounded-lg transition-colors"
               >
                 <RefreshCcw className="w-4 h-4 text-muted-foreground hover:text-foreground" />
               </button>
               
               {/* External link button */}
-              <button className="p-2 hover:bg-muted-foreground/10 rounded-r-lg transition-colors">
+              <button className="p-2 hover:bg-muted-foreground/10 rounded-lg transition-colors">
                 <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />
               </button>
             </div>
@@ -380,8 +379,8 @@ const ProjectEditor = () => {
                 {isLoading || isThinking ? (
                   <BuildingScreen message={isLoading ? 'Getting ready..' : 'Building your idea..'} />
                 ) : showPreview || projectId ? (
-                  <div className={`h-full ${activeDevice !== 'desktop' ? 'flex items-center justify-center bg-muted/30 p-4' : ''} overflow-auto`}>
-                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-300 ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
+                  <div className={`h-full flex items-center justify-center ${activeDevice !== 'desktop' ? 'bg-muted/30 p-4' : ''} overflow-auto transition-all duration-500 ease-out`}>
+                    <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-500 ease-out ${activeDevice !== 'desktop' ? 'border border-border rounded-xl shadow-2xl bg-background overflow-hidden' : ''}`}>
                       <div className="h-full overflow-auto">
                         <DemoApp key={previewKey} currentRoute={previewRoute} />
                       </div>
