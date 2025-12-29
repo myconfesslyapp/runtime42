@@ -451,7 +451,8 @@ const ProjectEditor = () => {
                   </button>
                   <button 
                     onClick={handleSubmit}
-                    className="w-8 h-8 rounded-full bg-foreground hover:bg-foreground/90 flex items-center justify-center text-background transition-colors"
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-colors hover:opacity-90"
+                    style={{ background: 'var(--gradient-orange)' }}
                   >
                     <ArrowUp className="w-4 h-4" />
                   </button>
