@@ -177,20 +177,22 @@ const ProjectEditor = () => {
       {/* Top Header */}
       <header className="h-14 flex items-center px-4 bg-card flex-shrink-0">
         {/* Left - Logo & Project Name */}
-        <div className="flex items-center gap-3 min-w-[200px]">
+        <div className="flex items-center gap-3 w-[420px]">
           <img src={logo} alt="runtime42" className="w-7 h-7 rounded-lg" />
           <div className="flex items-center gap-1.5 cursor-pointer hover:bg-muted/50 px-2 py-1.5 rounded-lg transition-colors">
             <span className="font-semibold text-foreground">{projectName}</span>
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </div>
+          <div className="flex-1" />
+          {/* History at end of chat panel */}
+          <button className="w-9 h-9 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            <History className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Center - Device & Tab Controls */}
-        <div className="flex-1 flex items-center justify-center gap-3">
-          <button className="w-9 h-9 rounded-lg hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-            <History className="w-4.5 h-4.5" />
-          </button>
-          
+        {/* Preview area controls - aligned with preview panel start */}
+        <div className="flex-1 flex items-center gap-3 pl-3">
+          {/* Device icons */}
           <div className="flex items-center gap-1">
             <button 
               onClick={() => setActiveDevice('mobile')}
@@ -198,7 +200,7 @@ const ProjectEditor = () => {
                 activeDevice === 'mobile' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Smartphone className="w-4.5 h-4.5" />
+              <Smartphone className="w-5 h-5" />
             </button>
             <button 
               onClick={() => setActiveDevice('tablet')}
@@ -206,7 +208,7 @@ const ProjectEditor = () => {
                 activeDevice === 'tablet' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Tablet className="w-4.5 h-4.5" />
+              <Tablet className="w-5 h-5" />
             </button>
             <button 
               onClick={() => setActiveDevice('desktop')}
@@ -214,10 +216,11 @@ const ProjectEditor = () => {
                 activeDevice === 'desktop' ? 'bg-muted text-foreground' : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Monitor className="w-4.5 h-4.5" />
+              <Monitor className="w-5 h-5" />
             </button>
           </div>
 
+          {/* Tabs */}
           <div className="flex items-center gap-0.5 bg-muted/50 rounded-lg p-1">
             <button 
               onClick={() => setActiveTab('preview')}
