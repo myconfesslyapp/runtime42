@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   Plus, MessageSquare, AudioLines, ArrowUp, ChevronDown,
   Globe, Code, BarChart3, Lightbulb, Share2,
@@ -46,11 +46,35 @@ const ProjectEditor = () => {
   const [previewKey, setPreviewKey] = useState(0);
   const [isFileSearchOpen, setIsFileSearchOpen] = useState(false);
   
+  const previewContainerRef = useRef<HTMLDivElement>(null);
+
   const availableRoutes = [
     { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
+    { path: '/features', label: 'Features' },
     { path: '/pricing', label: 'Pricing' },
+    { path: '/about', label: 'About' },
+    { path: '/blog', label: 'Blog' },
+    { path: '/contact', label: 'Contact' },
+    { path: '/login', label: 'Login' },
+    { path: '/signup', label: 'Sign Up' },
   ];
+
+  const handleRouteChange = (route: string) => {
+    setPreviewRoute(route);
+    // Scroll to top of preview when route changes
+    setTimeout(() => {
+      if (previewContainerRef.current) {
+        previewContainerRef.current.scrollTop = 0;
+      }
+    }, 10);
+  };
+
+  // Scroll to top when route changes via dropdown
+  useEffect(() => {
+    if (previewContainerRef.current) {
+      previewContainerRef.current.scrollTop = 0;
+    }
+  }, [previewRoute]);
 
   const deviceSizes = {
     mobile: 'w-[375px]',
@@ -472,8 +496,8 @@ const ProjectEditor = () => {
                 ) : showPreview || projectId ? (
                   <div className={`h-full flex items-center justify-center ${activeDevice !== 'desktop' ? 'bg-muted/30 p-4' : ''} overflow-auto transition-all duration-500 ease-out scrollbar-hide`}>
                     <div className={`h-full ${deviceSizes[activeDevice]} transition-all duration-500 ease-out ${activeDevice !== 'desktop' ? 'border border-border rounded-3xl shadow-2xl bg-background overflow-hidden' : ''}`}>
-                      <div className="h-full overflow-auto scrollbar-hide">
-                        <DemoApp key={previewKey} currentRoute={previewRoute} />
+                      <div ref={previewContainerRef} className="h-full overflow-auto scrollbar-hide">
+                        <DemoApp key={previewKey} currentRoute={previewRoute} onRouteChange={handleRouteChange} />
                       </div>
                     </div>
                   </div>
